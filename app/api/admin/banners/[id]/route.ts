@@ -5,8 +5,9 @@ import { bannerSchema } from '@/lib/validation/banner'
 // PATCH: 배너 수정
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const body = await request.json()
     const validatedData = bannerSchema.partial().parse(body)
@@ -14,7 +15,7 @@ export async function PATCH(
     const { data, error } = await supabaseAdmin
       .from('banners')
       .update(validatedData)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single()
 
@@ -36,13 +37,14 @@ export async function PATCH(
 // DELETE: 배너 삭제
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const { error } = await supabaseAdmin
       .from('banners')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
 
     if (error) {
       console.error('Error deleting banner:', error)
