@@ -45,6 +45,4 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 //   for select using (auth.role() = 'authenticated');
 // create policy "Enable insert for all users" on leads
 //   for insert with check (true);
-*/
-
-export {}
+//
