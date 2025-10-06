@@ -3,7 +3,7 @@
 import { createClient } from '@supabase/supabase-js'
 
 // Supabase 프로젝트 설정
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://wol5000.supabase.co'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://gfnwmwxharrwwsxxcgru.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGci0iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3Mi0iJzo'
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
