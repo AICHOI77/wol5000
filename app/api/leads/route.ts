@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { supabase } from '@/app/lib/supabase'
 
-// POST /api/leads - 리드 수집 (더미)
+// POST /api/leads - 리드 수집
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -22,10 +23,19 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     })
 
-    // TODO: Supabase 연동
-    // const { data, error } = await supabase
-    //   .from('leads')
-    //   .insert([{ name, phone, interest, created_at: new Date() }])
+    // Supabase에 리드 저장
+    const { data, error } = await supabase
+      .from('leads')
+      .insert([{ name, phone, interest, created_at: new Date() }])
+      .select()
+
+    if (error) {
+      console.error('Supabase 저장 에러:', error)
+      return NextResponse.json(
+        { error: '데이터 저장 중 오류가 발생했습니다.' },
+        { status: 500 }
+      )
+    }
 
     // TODO: n8n Webhook 연동
     // await fetch('https://your-n8n-webhook-url', {
@@ -46,7 +56,7 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: '신청이 완료되었습니다. 곧 연락드리겠습니다.',
-        data: { name, interest },
+        data: { id: data[0]?.id, name, interest },
       },
       { status: 201 }
     )
@@ -61,16 +71,31 @@ export async function POST(request: NextRequest) {
 
 // GET /api/leads - 리드 목록 조회 (관리자용)
 export async function GET() {
-  // TODO: 실제 구현 시 인증 필요
-  return NextResponse.json(
-    {
-      message: '리드 목록 조회는 관리자 인증이 필요합니다.',
-      // TODO: Supabase에서 리드 목록 가져오기
-      // const { data, error } = await supabase
-      //   .from('leads')
-      //   .select('*')
-      //   .order('created_at', { ascending: false })
-    },
-    { status: 401 }
-  )
+  try {
+    // Supabase에서 리드 목록 가져오기
+    const { data, error } = await supabase
+      .from('leads')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('Supabase 조회 에러:', error)
+      return NextResponse.json(
+        { error: '데이터 조회 중 오류가 발생했습니다.' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: data || [],
+      count: data?.length || 0
+    })
+  } catch (error) {
+    console.error('리드 조회 에러:', error)
+    return NextResponse.json(
+      { error: '서버 오류가 발생했습니다.' },
+      { status: 500 }
+    )
+  }
 }

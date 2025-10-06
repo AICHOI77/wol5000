@@ -1,5 +1,5 @@
 import Header from './components/header'
-import HeroCarousel from './components/hero-carousel'
+import HeroCarousel from './(site)/_components/HeroCarousel'
 import IconGrid from './components/icon-grid'
 import RailCarousel from './components/rail-carousel'
 import EarlybirdBanner from './components/earlybird-banner'

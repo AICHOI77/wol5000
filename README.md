@@ -43,11 +43,35 @@ npm run build
 npm start
 ```
 
+## 🌐 페이지 구조
+
+### 메인 페이지
+- `/` - 홈 (메인 랜딩)
+
+### 카테고리 페이지 (5개)
+- `/biz` - 자영업 AI 퍼널 자동화
+- `/startup` - AI 창업 시스템
+- `/njob` - N잡 AI 자동화
+- `/coin` - 코인 리포트/알림 자동화 (⚠️ 투자 위험 고지 포함)
+- `/agent` - AI Agent 고용 시스템
+
+각 페이지 공통 섹션:
+1. **Hero** - 카테고리별 헤드라인 + CTA
+2. **시스템 레일** - 넷플릭스형 가로 스크롤 시스템 카드
+3. **후기/사례** - 실사용 후기 슬라이더
+4. **리드 폼** - 무료 진단 신청 (POST /api/leads)
+5. **CTA 배너** - 하단 행동 유도
+
 ## 📂 프로젝트 구조
 
 ```
 ai-system-platform/
 ├── app/
+│   ├── biz/page.tsx              # 자영업 페이지
+│   ├── startup/page.tsx          # AI 창업 페이지
+│   ├── njob/page.tsx             # N잡 페이지
+│   ├── coin/page.tsx             # 코인 페이지
+│   ├── agent/page.tsx            # AI Agent 페이지
 │   ├── components/
 │   │   ├── header.tsx              # 헤더 (메뉴, 로그인)
 │   │   ├── hero-carousel.tsx       # 히어로 슬라이딩 배너
@@ -164,7 +188,7 @@ git push -u origin main
 2. 커스텀 도메인 추가 (예: ai5000.kr)
 3. DNS 설정 정보 확인
 
-#### Cloudflare에서:
+#### Cloudflare에서 (메인 도메인):
 1. DNS 관리 → CNAME 레코드 추가
    - Type: `CNAME`
    - Name: `@` (또는 www)
@@ -172,6 +196,163 @@ git push -u origin main
    - Proxy status: DNS only (회색 구름)
 2. SSL/TLS 설정 → Full
 3. 전파 대기 (최대 48시간, 보통 몇 분)
+
+## 🌐 서브도메인 매핑 가이드
+
+### 카테고리별 서브도메인 연결
+
+각 카테고리 페이지를 독립적인 서브도메인으로 운영할 수 있습니다:
+
+#### 1. Cloudflare DNS 설정
+
+메인 도메인이 `ai5000.kr`인 경우:
+
+```bash
+# 자영업
+CNAME  biz      cname.vercel-dns.com  (DNS only)
+
+# AI 창업
+CNAME  startup  cname.vercel-dns.com  (DNS only)
+
+# N잡
+CNAME  njob     cname.vercel-dns.com  (DNS only)
+
+# 코인
+CNAME  coin     cname.vercel-dns.com  (DNS only)
+
+# AI Agent
+CNAME  agent    cname.vercel-dns.com  (DNS only)
+```
+
+#### 2. Vercel 도메인 추가
+
+Vercel 프로젝트 Settings → Domains에서 각 서브도메인 추가:
+
+1. `biz.ai5000.kr`
+2. `startup.ai5000.kr`
+3. `njob.ai5000.kr`
+4. `coin.ai5000.kr`
+5. `agent.ai5000.kr`
+
+#### 3. Next.js 리다이렉트 설정 (선택사항)
+
+서브도메인 접속 시 자동으로 해당 경로로 이동하려면:
+
+**next.config.js**:
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'biz.ai5000.kr',
+          },
+        ],
+        destination: '/biz',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'startup.ai5000.kr',
+          },
+        ],
+        destination: '/startup',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'njob.ai5000.kr',
+          },
+        ],
+        destination: '/njob',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'coin.ai5000.kr',
+          },
+        ],
+        destination: '/coin',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'agent.ai5000.kr',
+          },
+        ],
+        destination: '/agent',
+        permanent: false,
+      },
+    ]
+  },
+  images: {
+    domains: [],
+    unoptimized: true,
+  },
+}
+
+module.exports = nextConfig
+```
+
+#### 4. 도메인 전환 순서
+
+1. **메인 도메인 먼저**: `ai5000.kr` 연결 및 동작 확인
+2. **서브도메인 추가**: 하나씩 추가하며 동작 확인
+3. **리다이렉트 테스트**: 각 서브도메인 접속 시 올바른 페이지 표시 확인
+4. **SEO 설정**: 각 페이지별 메타데이터 확인 (이미 설정됨)
+
+### 서브도메인 활용 전략
+
+#### 마케팅 분리
+- `biz.ai5000.kr` → 자영업자 타겟 광고
+- `startup.ai5000.kr` → 창업자 커뮤니티 홍보
+- `njob.ai5000.kr` → 직장인 N잡 콘텐츠
+
+#### SEO 최적화
+각 서브도메인이 독립적인 랜딩으로 작동하여:
+- 카테고리별 키워드 집중
+- 타겟 오디언스별 맞춤 콘텐츠
+- 전환율 개선
+
+#### A/B 테스팅
+- 메인 도메인: 기본 버전
+- 서브도메인: 카테고리별 최적화 버전
+
+### 트래픽 분석 설정
+
+Google Analytics 4 설정 예시:
+
+```javascript
+// app/layout.tsx 또는 _document.tsx
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {
+    page_path: window.location.pathname,
+    custom_map: {
+      dimension1: 'category'  // biz, startup, njob, coin, agent
+    }
+  });
+</script>
+```
 
 ## 🔧 환경 변수 (Supabase 연동 시)
 

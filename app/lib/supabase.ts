@@ -1,16 +1,10 @@
-// Supabase 클라이언트 설정 (차후 연동용)
-
-// TODO: .env.local 파일에 환경변수 추가
-// NEXT_PUBLIC_SUPABASE_URL=your-project-url
-// NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-
-/*
-// 설치 필요: npm install @supabase/supabase-js
+// Supabase 클라이언트 설정
 
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Supabase 프로젝트 설정
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://wol5000.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGci0iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3Mi0iJzo'
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 

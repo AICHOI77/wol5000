@@ -1,19 +1,28 @@
 'use client'
 
 import { Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
+  // 카테고리 메뉴 (좌측/중앙)
+  const categoryMenus = [
+    { label: '자영업', href: '/biz' },
+    { label: 'AI창업', href: '/startup' },
+    { label: 'N잡', href: '/njob' },
+    { label: '코인', href: '/coin' },
+    { label: 'AI Agent', href: '/agent' },
+  ]
+
+  // 기존 메뉴 (우측 - 데스크톱에서만 표시)
   const menuItems = [
     { label: '무료강의 일정', href: '#schedule' },
     { label: '얼리버드', href: '#earlybird' },
     { label: '수강후기', href: '#reviews' },
-    { label: '전자책', href: '#ebook' },
-    { label: '수익인증', href: '#proof' },
     { label: '강사진', href: '#teachers' },
-    { label: '커뮤니티', href: '#community' },
   ]
 
   return (
@@ -29,13 +38,30 @@ export default function Header() {
             AI5000
           </a>
 
-          {/* 데스크톱 메뉴 */}
-          <nav className="hidden lg:flex items-center space-x-8" aria-label="주요 메뉴">
+          {/* 데스크톱 카테고리 메뉴 */}
+          <nav className="hidden lg:flex items-center space-x-6" aria-label="카테고리">
+            {categoryMenus.map((item) => {
+              const isActive = pathname === item.href
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`text-sm font-semibold transition-colors ${
+                    isActive
+                      ? 'text-[#E50914]'
+                      : 'text-neutral-300 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
+            <span className="text-neutral-600">|</span>
             {menuItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-neutral-300 hover:text-white transition-colors"
+                className="text-sm font-medium text-neutral-400 hover:text-white transition-colors"
               >
                 {item.label}
               </a>
@@ -73,16 +99,43 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-white/10 animate-slide-in">
             <nav className="flex flex-col space-y-4" aria-label="모바일 메뉴">
-              {menuItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-neutral-300 hover:text-white transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {/* 카테고리 메뉴 */}
+              <div className="space-y-3">
+                <p className="text-xs font-bold text-neutral-500 uppercase">카테고리</p>
+                {categoryMenus.map((item) => {
+                  const isActive = pathname === item.href
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className={`block ${
+                        isActive
+                          ? 'text-[#E50914] font-bold'
+                          : 'text-neutral-300 hover:text-white'
+                      } transition-colors`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  )
+                })}
+              </div>
+
+              {/* 기존 메뉴 */}
+              <div className="space-y-3 pt-4 border-t border-white/10">
+                <p className="text-xs font-bold text-neutral-500 uppercase">메뉴</p>
+                {menuItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="block text-neutral-300 hover:text-white transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+
               <div className="flex flex-col space-y-2 pt-4 border-t border-white/10">
                 <button className="btn-secondary text-sm w-full">로그인</button>
                 <button className="btn-primary text-sm w-full">회원가입</button>
