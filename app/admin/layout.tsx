@@ -38,10 +38,10 @@ export default function AdminLayout({
           {/* 로고 */}
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-[#E50914] rounded-lg flex items-center justify-center font-bold text-white">
-              A
+              W
             </div>
             <h1 className="text-xl font-bold text-white hidden sm:block">
-              AI5000 Admin
+              월5천플랫폼 Admin
             </h1>
           </div>
 

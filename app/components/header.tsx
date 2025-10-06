@@ -32,10 +32,13 @@ export default function Header() {
           {/* 로고 */}
           <a
             href="/"
-            className="text-2xl lg:text-3xl font-bold text-gradient"
-            aria-label="AI 시스템 플랫폼 홈"
+            className="flex items-center space-x-2"
+            aria-label="월5천플랫폼 홈"
           >
-            AI5000
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-[#E50914] rounded-lg flex items-center justify-center">
+              <span className="text-white text-xl lg:text-2xl font-bold">W</span>
+            </div>
+            <span className="text-xl lg:text-2xl font-bold text-white">월5천플랫폼</span>
           </a>
 
           {/* 데스크톱 카테고리 메뉴 */}
