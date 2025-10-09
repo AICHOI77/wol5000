@@ -1,17 +1,15 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { supabase, AgentProduct } from '@/db/supabase'
 import Header from '@/app/components/header'
 
-interface AgentManagementPageProps {
-  params: { slug: string }
-}
-
-export default function AgentManagementPage({ params }: AgentManagementPageProps) {
+export default function AgentManagementPage() {
   const router = useRouter()
+  const params = useParams()
+  const slug = params?.slug as string
   const [user, setUser] = useState<any>(null)
   const [agent, setAgent] = useState<AgentProduct | null>(null)
   const [hasAccess, setHasAccess] = useState(false)
@@ -19,6 +17,8 @@ export default function AgentManagementPage({ params }: AgentManagementPageProps
   const [activeTab, setActiveTab] = useState<'overview' | 'settings' | 'stats' | 'logs'>('overview')
 
   useEffect(() => {
+    if (!slug) return
+    
     async function loadData() {
       try {
         // 사용자 인증 확인
@@ -35,7 +35,7 @@ export default function AgentManagementPage({ params }: AgentManagementPageProps
         const { data: agentData, error: agentError } = await supabase
           .from('agent_products')
           .select('*')
-          .eq('slug', params.slug)
+          .eq('slug', slug)
           .single()
 
         if (agentError || !agentData) {
@@ -56,7 +56,7 @@ export default function AgentManagementPage({ params }: AgentManagementPageProps
 
         if (!purchase) {
           // 구매하지 않은 경우
-          router.push(`/agent/${params.slug}`)
+          router.push(`/agent/${slug}`)
           return
         }
 
@@ -69,7 +69,7 @@ export default function AgentManagementPage({ params }: AgentManagementPageProps
     }
 
     loadData()
-  }, [params.slug, router])
+  }, [slug, router])
 
   if (loading) {
     return (
