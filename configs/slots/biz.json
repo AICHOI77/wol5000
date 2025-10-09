@@ -1,0 +1,31 @@
+{
+  "slug": "biz",
+  "title": "AI 자영업 매출증대 에이전트",
+  "price_krw": 2000000,
+  "hero": {
+    "headline": "하루 예약 3건 → 10건",
+    "sub": "예약·트래픽·영상·CS를 한 번에 묶은 자영업 전용 자동화",
+    "cta": "3분 데모 체험"
+  },
+  "faq": [
+    "정착까지 얼마나 걸리나요?",
+    "우리 업종에도 맞나요?",
+    "예약 메시지는 자동 발송되나요?",
+    "영업시간 외 문의는 어떻게?",
+    "환불/부분환불 정책은?",
+    "데이터는 어디에 저장되나요?",
+    "광고비는 별도인가요?",
+    "영상 제작은 자동인가요?",
+    "트래픽 추적은 어떻게?",
+    "유지보수는 어떻게?"
+  ],
+  "modules": [
+    {"key":"reserve","name":"예약 자동화 퍼널","path":"/biz/agent/reserve"},
+    {"key":"shorts","name":"숏츠·영상 마케팅","path":"/biz/agent/shorts"},
+    {"key":"traffic","name":"압도적 트래픽","path":"/biz/agent/traffic"},
+    {"key":"cs","name":"방문율/CS 자동화","path":"/biz/agent/cs"}
+  ],
+  "webinar_url": "https://calendly.com/wol5000/demo",
+  "form_provider": "convertkit",
+  "form_id": "XXXX"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Traffic UTM Tracking",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "path": "traffic",
+        "responseMode": "responseNode"
+      }
+    },
+    {
+      "name": "PostHog Capture",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": {
+        "url": "https://app.posthog.com/capture/",
+        "method": "POST",
+        "options": {
+          "bodyContentType": "json"
+        },
+        "bodyParametersJson": "={\n  \"api_key\": \"{{ $env.POSTHOG_KEY }}\",\n  \"event\": \"utm_click\",\n  \"properties\": {\n    \"source\": \"{{ $json.plan[0].channel }}\",\n    \"campaign\": \"{{ $json.slot }}\",\n    \"utm_params\": \"{{ $json.plan[0].utm_params }}\"\n  }\n}"
+      }
+    },
+    {
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [650, 300],
+      "parameters": {
+        "responseBody": "={ \"success\": true }"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "PostHog Capture", "type": "main", "index": 0 }]]
+    },
+    "PostHog Capture": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "Shorts Script Storage",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "path": "shorts",
+        "responseMode": "responseNode"
+      }
+    },
+    {
+      "name": "Google Sheets Append",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [450, 300],
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "A:F",
+        "options": {
+          "valueInputMode": "USER_ENTERED"
+        }
+      }
+    },
+    {
+      "name": "Airtable Create",
+      "type": "n8n-nodes-base.airtable",
+      "position": [650, 300],
+      "parameters": {
+        "operation": "create",
+        "application": "YOUR_AIRTABLE_BASE_ID",
+        "table": "Content Calendar",
+        "fields": {
+          "Title": "={{ $json.scripts[0].title }}",
+          "Industry": "={{ $json.industry }}",
+          "Keywords": "={{ $json.keywords.join(', ') }}",
+          "Created": "={{ $now }}"
+        }
+      }
+    },
+    {
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [850, 300],
+      "parameters": {
+        "responseBody": "={ \"success\": true }"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Google Sheets Append", "type": "main", "index": 0 }]]
+    },
+    "Google Sheets Append": {
+      "main": [[{ "node": "Airtable Create", "type": "main", "index": 0 }]]
+    },
+    "Airtable Create": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  }
+}

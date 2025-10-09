@@ -1,461 +1,272 @@
-# AI 시스템 플랫폼 - 월5천 AI 자동화 시스템
+# 월5000 - AI Agent Platform
 
-넷플릭스 스타일의 블랙·레드 컬러 시스템으로 구현된 AI 시스템 세팅 플랫폼 랜딩 페이지입니다.
+자영업 매출증대를 위한 AI 에이전트 모듈 시스템
 
-## 🎨 디자인 시스템
+## 📁 프로젝트 구조
 
-- **배경**: #000000 (블랙)
-- **포인트**: #E50914 (넷플릭스 레드)
-- **서브**: #B3B3B3 (라이트 그레이)
-- **텍스트**: #FFFFFF (화이트)
-- **폰트**: Pretendard, Inter, system-ui
+```
+wol5000/
+├── app/
+│   ├── biz/
+│   │   └── agent/
+│   │       ├── page.tsx    # MVP 통합 랜딩
+│   │       ├── reserve/    # 예약 자동화
+│   │       ├── shorts/     # 숏츠 마케팅
+│   │       ├── traffic/    # 트래픽 플래너
+│   │       └── cs/         # CS 자동화
+│   └── api/
+│       └── agent/          # Agent API 라우트
+├── lib/
+│   ├── agent-core/         # Agent 파이프라인
+│   │   ├── index.ts
+│   │   └── actions/
+│   ├── analytics.ts        # PostHog/Vercel 래퍼
+│   └── supabase.ts
+├── configs/
+│   └── slots/
+│       └── biz.json        # 자영업 슬롯 설정
+├── n8n/
+│   └── flows/              # n8n 워크플로우
+└── supabase-schema.sql     # 데이터베이스 스키마
+```
 
-## 🚀 기술 스택
+## 🚀 시작하기
 
-- **프레임워크**: Next.js 14 (App Router)
-- **언어**: TypeScript
-- **스타일링**: TailwindCSS
-- **아이콘**: lucide-react
-- **배포**: Vercel
-- **DB (예정)**: Supabase
-
-## 📦 설치 및 실행
-
-### 1. 프로젝트 클론/다운로드
+### 1. 의존성 설치
 
 ```bash
-cd ai-system-platform
 npm install
 ```
 
-### 2. 개발 서버 실행
+### 2. 환경변수 설정
+
+`.env.local` 파일을 생성하고 다음 변수들을 설정하세요:
+
+```env
+# Supabase (필수)
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# n8n Webhook (선택)
+N8N_WEBHOOK_BASE=https://your-n8n-instance.com/webhook
+
+# PostHog Analytics (선택)
+POSTHOG_KEY=your_posthog_project_key
+
+# Solapi SMS (선택)
+SOLAPI_API_KEY=your_solapi_api_key
+
+# Google Calendar (선택)
+CALENDAR_CREDENTIALS=your_google_calendar_credentials
+
+# ConvertKit (선택)
+CONVERTKIT_API_KEY=your_convertkit_api_key
+```
+
+### 3. 데이터베이스 스키마 적용
+
+Supabase 대시보드의 SQL Editor에서 `supabase-schema.sql` 파일을 실행하세요:
+
+```sql
+-- bookings, agent_sessions, audit_logs 테이블 생성
+-- leads 테이블에 slot/module 컬럼 추가
+-- RLS 정책 및 인덱스 설정
+```
+
+### 4. 개발 서버 실행
 
 ```bash
 npm run dev
 ```
 
-브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
+http://localhost:3000 에서 애플리케이션을 확인할 수 있습니다.
 
-### 3. 빌드
+## 📦 모듈 시스템
 
-```bash
-npm run build
-npm start
-```
+### Agent Pipeline
 
-## 🌐 페이지 구조
-
-### 메인 페이지
-- `/` - 홈 (메인 랜딩)
-
-### 카테고리 페이지 (5개)
-- `/biz` - 자영업 AI 퍼널 자동화
-- `/startup` - AI 창업 시스템
-- `/njob` - N잡 AI 자동화
-- `/coin` - 코인 리포트/알림 자동화 (⚠️ 투자 위험 고지 포함)
-- `/agent` - AI Agent 고용 시스템
-
-각 페이지 공통 섹션:
-1. **Hero** - 카테고리별 헤드라인 + CTA
-2. **시스템 레일** - 넷플릭스형 가로 스크롤 시스템 카드
-3. **후기/사례** - 실사용 후기 슬라이더
-4. **리드 폼** - 무료 진단 신청 (POST /api/leads)
-5. **CTA 배너** - 하단 행동 유도
-
-## 📂 프로젝트 구조
+모든 모듈은 동일한 파이프라인을 따릅니다:
 
 ```
-ai-system-platform/
-├── app/
-│   ├── biz/page.tsx              # 자영업 페이지
-│   ├── startup/page.tsx          # AI 창업 페이지
-│   ├── njob/page.tsx             # N잡 페이지
-│   ├── coin/page.tsx             # 코인 페이지
-│   ├── agent/page.tsx            # AI Agent 페이지
-│   ├── components/
-│   │   ├── header.tsx              # 헤더 (메뉴, 로그인)
-│   │   ├── hero-carousel.tsx       # 히어로 슬라이딩 배너
-│   │   ├── icon-grid.tsx           # 아이콘 메뉴 그리드
-│   │   ├── rail-carousel.tsx       # 넷플릭스형 가로 스크롤
-│   │   ├── earlybird-banner.tsx    # 얼리버드 배너
-│   │   ├── calendar-list.tsx       # 달력 + 일정 리스트
-│   │   ├── teachers-slider.tsx     # 강사진 슬라이더
-│   │   └── footer-cta.tsx          # CTA + 마키 + 푸터
-│   ├── lib/
-│   │   ├── data.ts                 # 더미 데이터
-│   │   └── supabase.ts             # Supabase 설정 (확장용)
-│   ├── api/
-│   │   └── leads/route.ts          # 리드 수집 API
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── globals.css
-├── public/
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
+입력 → 검증 → 실행 → 요약
 ```
 
-## 🎯 주요 기능
+**사용 예시:**
 
-### 1. 히어로 섹션
-- 3개 슬라이드 자동 재생 (5초 간격)
-- 키보드 내비게이션 (좌우 화살표)
-- 인디케이터 페이징
+```typescript
+import { runAgentPipeline } from '@/lib/agent-core'
+import { reserveAction } from '@/lib/agent-core/actions/reserve'
 
-### 2. 아이콘 그리드
-- 8개 주요 서비스 메뉴
-- 반응형 레이아웃 (모바일 2열, 데스크톱 4열)
-- 호버 애니메이션
-
-### 3. 넷플릭스형 카루셀
-- 가로 스크롤 (드래그, 마우스 휠)
-- 호버 시 플레이 버튼 오버레이
-- 무료 강의 6개 카드
-
-### 4. 얼리버드 배너
-- 풀배너 레드 배경
-- 애니메이션 효과
-- 할인율 뱃지 (펄스 애니메이션)
-
-### 5. 강의 일정
-- 좌측: 인터랙티브 달력 (월 전환)
-- 우측: 일정 리스트 (태그, 시간 표시)
-
-### 6. 강사진 슬라이더
-- 5명 전문가 프로필
-- 가로 스크롤 네비게이션
-- 호버 효과
-
-### 7. CTA 섹션
-- 대형 액션 배너
-- 키워드 마키 애니메이션
-- 푸터 정보
-
-## 🔌 API 엔드포인트
-
-### POST /api/leads
-리드 수집 (무료 진단 신청)
-
-**요청 예시:**
-```json
-{
-  "name": "홍길동",
-  "phone": "010-1234-5678",
-  "interest": "자영업 퍼널"
-}
-```
-
-**응답 예시:**
-```json
-{
-  "success": true,
-  "message": "신청이 완료되었습니다. 곧 연락드리겠습니다.",
-  "data": {
-    "name": "홍길동",
-    "interest": "자영업 퍼널"
-  }
-}
-```
-
-## 🚀 Vercel 배포
-
-### 1. GitHub 레포지토리 생성
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: AI System Platform"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/ai-system-platform.git
-git push -u origin main
-```
-
-### 2. Vercel 배포
-
-1. [Vercel](https://vercel.com) 접속 및 로그인
-2. "New Project" 클릭
-3. GitHub 레포지토리 선택 (ai-system-platform)
-4. 프로젝트 설정:
-   - Framework Preset: `Next.js`
-   - Build Command: `npm run build`
-   - Output Directory: `.next`
-5. "Deploy" 클릭
-
-### 3. 도메인 연결
-
-#### Vercel에서:
-1. 프로젝트 Settings → Domains
-2. 커스텀 도메인 추가 (예: ai5000.kr)
-3. DNS 설정 정보 확인
-
-#### Cloudflare에서 (메인 도메인):
-1. DNS 관리 → CNAME 레코드 추가
-   - Type: `CNAME`
-   - Name: `@` (또는 www)
-   - Target: `cname.vercel-dns.com`
-   - Proxy status: DNS only (회색 구름)
-2. SSL/TLS 설정 → Full
-3. 전파 대기 (최대 48시간, 보통 몇 분)
-
-## 🌐 서브도메인 매핑 가이드
-
-### 카테고리별 서브도메인 연결
-
-각 카테고리 페이지를 독립적인 서브도메인으로 운영할 수 있습니다:
-
-#### 1. Cloudflare DNS 설정
-
-메인 도메인이 `ai5000.kr`인 경우:
-
-```bash
-# 자영업
-CNAME  biz      cname.vercel-dns.com  (DNS only)
-
-# AI 창업
-CNAME  startup  cname.vercel-dns.com  (DNS only)
-
-# N잡
-CNAME  njob     cname.vercel-dns.com  (DNS only)
-
-# 코인
-CNAME  coin     cname.vercel-dns.com  (DNS only)
-
-# AI Agent
-CNAME  agent    cname.vercel-dns.com  (DNS only)
-```
-
-#### 2. Vercel 도메인 추가
-
-Vercel 프로젝트 Settings → Domains에서 각 서브도메인 추가:
-
-1. `biz.ai5000.kr`
-2. `startup.ai5000.kr`
-3. `njob.ai5000.kr`
-4. `coin.ai5000.kr`
-5. `agent.ai5000.kr`
-
-#### 3. Next.js 리다이렉트 설정 (선택사항)
-
-서브도메인 접속 시 자동으로 해당 경로로 이동하려면:
-
-**next.config.js**:
-```javascript
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/',
-        has: [
-          {
-            type: 'host',
-            value: 'biz.ai5000.kr',
-          },
-        ],
-        destination: '/biz',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'host',
-            value: 'startup.ai5000.kr',
-          },
-        ],
-        destination: '/startup',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'host',
-            value: 'njob.ai5000.kr',
-          },
-        ],
-        destination: '/njob',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'host',
-            value: 'coin.ai5000.kr',
-          },
-        ],
-        destination: '/coin',
-        permanent: false,
-      },
-      {
-        source: '/',
-        has: [
-          {
-            type: 'host',
-            value: 'agent.ai5000.kr',
-          },
-        ],
-        destination: '/agent',
-        permanent: false,
-      },
-    ]
+const output = await runAgentPipeline(
+  {
+    slot: 'biz',
+    module: 'reserve',
+    data: { name, phone, industry, desired_at }
   },
-  images: {
-    domains: [],
-    unoptimized: true,
-  },
-}
-
-module.exports = nextConfig
+  reserveAction
+)
 ```
 
-#### 4. 도메인 전환 순서
+### 모듈 목록
 
-1. **메인 도메인 먼저**: `ai5000.kr` 연결 및 동작 확인
-2. **서브도메인 추가**: 하나씩 추가하며 동작 확인
-3. **리다이렉트 테스트**: 각 서브도메인 접속 시 올바른 페이지 표시 확인
-4. **SEO 설정**: 각 페이지별 메타데이터 확인 (이미 설정됨)
+#### MVP 통합 페이지
+- **경로**: `/biz/agent`
+- **기능**: 4가지 에이전트 모듈 통합 랜딩 페이지
 
-### 서브도메인 활용 전략
+#### 1. Reserve (예약 자동화)
+- **경로**: `/biz/agent/reserve`
+- **기능**: 예약폼 → Supabase 저장 → 알림톡 발송 → 캘린더 등록
+- **API**: `POST /api/agent/reserve`
+- **n8n**: `n8n/flows/reserve.json`
 
-#### 마케팅 분리
-- `biz.ai5000.kr` → 자영업자 타겟 광고
-- `startup.ai5000.kr` → 창업자 커뮤니티 홍보
-- `njob.ai5000.kr` → 직장인 N잡 콘텐츠
+#### 2. Shorts (숏츠 마케팅)
+- **경로**: `/biz/agent/shorts`
+- **기능**: 키워드 입력 → 3개 스크립트 생성 → Google Sheets/Airtable 저장
+- **액션**: `lib/agent-core/actions/shorts.ts`
+- **n8n**: `n8n/flows/shorts.json`
 
-#### SEO 최적화
-각 서브도메인이 독립적인 랜딩으로 작동하여:
-- 카테고리별 키워드 집중
-- 타겟 오디언스별 맞춤 콘텐츠
-- 전환율 개선
+#### 3. Traffic (트래픽 플래너)
+- **경로**: `/biz/agent/traffic`
+- **기능**: 채널 체크리스트 → 7일/14일 플랜 생성 → UTM 링크
+- **액션**: `lib/agent-core/actions/traffic.ts`
+- **n8n**: `n8n/flows/traffic.json`
 
-#### A/B 테스팅
-- 메인 도메인: 기본 버전
-- 서브도메인: 카테고리별 최적화 버전
+#### 4. CS (CS 자동화)
+- **경로**: `/biz/agent/cs`
+- **기능**: 3단계 메시지 템플릿 (전날/당일/리마인드) → Solapi 발송
+- **액션**: `lib/agent-core/actions/cs.ts`
+- **n8n**: `n8n/flows/cs.json`
 
-### 트래픽 분석 설정
+## 📊 Analytics (KPI 이벤트)
 
-Google Analytics 4 설정 예시:
+모든 주요 이벤트는 PostHog/Vercel Analytics로 자동 추적됩니다:
 
-```javascript
-// app/layout.tsx 또는 _document.tsx
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX', {
-    page_path: window.location.pathname,
-    custom_map: {
-      dimension1: 'category'  // biz, startup, njob, coin, agent
-    }
-  });
-</script>
+```typescript
+import { trackLeadSubmitted, trackAgentAction } from '@/lib/analytics'
+
+// Lead 제출
+trackLeadSubmitted('biz', 'reserve')
+
+// Agent 액션 완료
+trackAgentAction('biz', 'reserve', duration_ms)
+
+// Booking 생성
+trackBookingCreated('reserve')
+
+// Webinar 클릭
+trackWebinarClick('biz')
+
+// Shorts 플랜 생성
+trackShortsPlanGenerated()
+
+// UTM 클릭
+trackUTMClick('naver', 'new_customer')
 ```
 
-## 🔧 환경 변수 (Supabase 연동 시)
+## 🔄 n8n 워크플로우 설정
 
-`.env.local` 파일 생성:
+### 1. n8n 인스턴스 설치
+
+```bash
+# Docker로 n8n 실행
+docker run -it --rm \
+  --name n8n \
+  -p 5678:5678 \
+  -v ~/.n8n:/home/node/.n8n \
+  n8nio/n8n
+```
+
+### 2. 워크플로우 Import
+
+1. n8n 대시보드 접속 (http://localhost:5678)
+2. Workflows → Import from File
+3. `n8n/flows/` 디렉토리의 JSON 파일들을 하나씩 import
+
+### 3. Webhook URL 설정
+
+각 워크플로우의 Webhook URL을 `.env.local`에 설정:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+N8N_WEBHOOK_BASE=https://your-n8n-instance.com/webhook
 ```
 
-## 📊 Supabase 테이블 설계
+## 🗄️ 데이터베이스 테이블
 
-```sql
--- leads 테이블
-create table leads (
-  id uuid default uuid_generate_v4() primary key,
-  name text not null,
-  phone text not null,
-  interest text not null,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
+### bookings
+예약 정보 저장
 
--- events 테이블
-create table events (
-  id uuid default uuid_generate_v4() primary key,
-  title text not null,
-  date date not null,
-  time text,
-  tag text,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
+| 컬럼 | 타입 | 설명 |
+|------|------|------|
+| id | UUID | PK |
+| name | TEXT | 예약자 이름 |
+| phone | TEXT | 전화번호 |
+| industry | TEXT | 업종 |
+| desired_at | TIMESTAMPTZ | 희망 일시 |
+| status | TEXT | 상태 (pending/confirmed/cancelled) |
 
--- instructors 테이블
-create table instructors (
-  id uuid default uuid_generate_v4() primary key,
-  name text not null,
-  role text not null,
-  img_url text,
-  expertise text,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
+### agent_sessions
+에이전트 실행 기록
 
--- RLS 설정
-alter table leads enable row level security;
-create policy "Enable insert for all users" on leads
-  for insert with check (true);
+| 컬럼 | 타입 | 설명 |
+|------|------|------|
+| id | UUID | PK |
+| slot | TEXT | 슬롯 (biz/startup/njob 등) |
+| module | TEXT | 모듈 (reserve/shorts/traffic/cs) |
+| input | JSONB | 입력 데이터 |
+| output | JSONB | 출력 데이터 |
+
+### audit_logs
+발송 로그 및 감사 추적
+
+| 컬럼 | 타입 | 설명 |
+|------|------|------|
+| id | UUID | PK |
+| category | TEXT | sms/email/webhook |
+| ref_id | UUID | 참조 ID (bookings.id 등) |
+| payload | JSONB | 발송 데이터 |
+| result | TEXT | 결과 |
+
+## 🚢 배포
+
+### Vercel 배포
+
+```bash
+# Vercel 프로젝트 연결 (처음만)
+npx vercel link
+
+# 환경변수 설정
+npx vercel env add NEXT_PUBLIC_SUPABASE_URL
+npx vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
+npx vercel env add SUPABASE_SERVICE_ROLE_KEY
+npx vercel env add N8N_WEBHOOK_BASE
+npx vercel env add POSTHOG_KEY
+
+# Production 배포
+npx vercel --prod
 ```
 
-## 🔗 n8n 자동화 워크플로우
+## 📝 슬롯 추가하기
 
-### 리드 수집 워크플로우
-1. **Webhook 수신** → POST /api/leads 호출
-2. **Supabase Insert** → leads 테이블 저장
-3. **Slack 알림** → #leads 채널 알림 발송
-4. **Calendly 링크 발송** → 이메일/SMS 자동 발송
-5. **CRM 등록** → 자동 고객 등록
+새로운 슬롯(예: startup, njob)을 추가하려면:
 
-## 🎨 UI 스크린샷 생성
+1. `configs/slots/` 에 새 JSON 파일 생성
+2. `app/[slot]/agent/` 디렉토리 구조 복사
+3. `configs/slots/[slot].json` 설정 수정
+4. 모듈별 액션 파일 수정
 
-개발 서버 실행 후 다음 섹션 캡처:
+## 🤝 기여하기
 
-1. **Hero**: `http://localhost:3000#hero`
-2. **Icons**: `http://localhost:3000#icons`
-3. **Free Shows**: `http://localhost:3000#free-shows`
-4. **Earlybird**: `http://localhost:3000#earlybird`
-5. **Schedule**: `http://localhost:3000#schedule`
-6. **Teachers**: `http://localhost:3000#teachers`
-
-## 📝 TODO (확장 기능)
-
-- [ ] 리드 수집 폼 모달 구현
-- [ ] Supabase 실제 연동
-- [ ] n8n Webhook 연동
-- [ ] 강사진 상세 페이지
-- [ ] 강의 예약 시스템
-- [ ] 로그인/회원가입 기능
-- [ ] 관리자 대시보드
-- [ ] SEO 최적화 (메타태그, 스키마)
-- [ ] Google Analytics 연동
-- [ ] 다국어 지원 (i18n)
-
-## 🔄 중 카테고리 확장
-
-같은 템플릿으로 다른 타겟 대상 페이지 생성:
-
-```
-/jaeyungeop     # 자영업
-/changup        # 창업
-/njob           # N잡
-/senior         # 시니어
-/tuza           # 투자
-```
-
-각 페이지는 카피와 이미지만 교체하면 됩니다.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 라이선스
 
 MIT License
 
-## 👨‍💻 개발자
+## 📞 지원
 
-AI5000 Platform Team
-
----
-
-**문의**: contact@ai5000.kr
+문의사항이 있으시면 이슈를 생성해주세요.

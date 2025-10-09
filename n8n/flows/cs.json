@@ -1,0 +1,118 @@
+{
+  "name": "CS Automation 3-Stage",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "path": "cs",
+        "responseMode": "responseNode"
+      }
+    },
+    {
+      "name": "Send Before Day Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": {
+        "url": "https://api.solapi.com/messages/v4/send",
+        "authentication": "headerAuth",
+        "bodyParametersJson": "={\n  \"message\": {\n    \"to\": \"{{ $json.phone }}\",\n    \"from\": \"01012345678\",\n    \"text\": \"{{ $json.templates[0].content }}\"\n  }\n}"
+      }
+    },
+    {
+      "name": "Wait 18h",
+      "type": "n8n-nodes-base.wait",
+      "position": [650, 300],
+      "parameters": {
+        "amount": 18,
+        "unit": "hours"
+      }
+    },
+    {
+      "name": "Send Same Day Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [850, 300],
+      "parameters": {
+        "url": "https://api.solapi.com/messages/v4/send",
+        "authentication": "headerAuth",
+        "bodyParametersJson": "={\n  \"message\": {\n    \"to\": \"{{ $json.phone }}\",\n    \"from\": \"01012345678\",\n    \"text\": \"{{ $json.templates[1].content }}\"\n  }\n}"
+      }
+    },
+    {
+      "name": "Wait 6h",
+      "type": "n8n-nodes-base.wait",
+      "position": [1050, 300],
+      "parameters": {
+        "amount": 6,
+        "unit": "hours"
+      }
+    },
+    {
+      "name": "Send Reminder with Coupon",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1250, 300],
+      "parameters": {
+        "url": "https://api.solapi.com/messages/v4/send",
+        "authentication": "headerAuth",
+        "bodyParametersJson": "={\n  \"message\": {\n    \"to\": \"{{ $json.phone }}\",\n    \"from\": \"01012345678\",\n    \"text\": \"{{ $json.templates[2].content }}\"\n  }\n}"
+      }
+    },
+    {
+      "name": "Log to Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "position": [1450, 300],
+      "parameters": {
+        "operation": "insert",
+        "tableId": "audit_logs",
+        "fieldsUi": {
+          "field": [
+            {
+              "fieldName": "category",
+              "fieldValue": "sms"
+            },
+            {
+              "fieldName": "payload",
+              "fieldValue": "={{ $json }}"
+            },
+            {
+              "fieldName": "result",
+              "fieldValue": "completed"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1650, 300],
+      "parameters": {
+        "responseBody": "={ \"success\": true }"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Send Before Day Message", "type": "main", "index": 0 }]]
+    },
+    "Send Before Day Message": {
+      "main": [[{ "node": "Wait 18h", "type": "main", "index": 0 }]]
+    },
+    "Wait 18h": {
+      "main": [[{ "node": "Send Same Day Message", "type": "main", "index": 0 }]]
+    },
+    "Send Same Day Message": {
+      "main": [[{ "node": "Wait 6h", "type": "main", "index": 0 }]]
+    },
+    "Wait 6h": {
+      "main": [[{ "node": "Send Reminder with Coupon", "type": "main", "index": 0 }]]
+    },
+    "Send Reminder with Coupon": {
+      "main": [[{ "node": "Log to Supabase", "type": "main", "index": 0 }]]
+    },
+    "Log to Supabase": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  }
+}

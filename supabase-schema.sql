@@ -62,3 +62,68 @@ INSERT INTO instructors (name, role, img_url, expertise, bio) VALUES
 ('김AI', 'AI 전문가', '/instructors/kim-ai.jpg', 'Machine Learning, Deep Learning', '10년 경력의 AI 전문가로 다양한 프로젝트를 성공적으로 완료했습니다.'),
 ('박데이터', '데이터 사이언티스트', '/instructors/park-data.jpg', 'Data Analysis, Statistics', '빅데이터 분석과 통계학을 전문으로 하는 데이터 사이언티스트입니다.'),
 ('이코딩', '풀스택 개발자', '/instructors/lee-coding.jpg', 'Full Stack, AI Integration', 'AI와 웹 개발을 결합한 혁신적인 솔루션을 만드는 개발자입니다.');
+
+-- ========================================
+-- Agent Module System Tables
+-- ========================================
+
+-- bookings 테이블 (예약 정보)
+CREATE TABLE IF NOT EXISTS bookings (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  industry TEXT,
+  desired_at TIMESTAMPTZ NOT NULL,
+  note TEXT,
+  status TEXT DEFAULT 'pending',
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- agent_sessions 테이블 (에이전트 실행 기록)
+CREATE TABLE IF NOT EXISTS agent_sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slot TEXT NOT NULL,
+  module TEXT NOT NULL,
+  input JSONB,
+  output JSONB,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- audit_logs 테이블 (발송 로그)
+CREATE TABLE IF NOT EXISTS audit_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  category TEXT,    -- 'sms','email','webhook'
+  ref_id UUID,      -- bookings.id 등
+  payload JSONB,
+  result TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- leads 테이블에 slot/module 컬럼 추가 (기존 테이블 확장)
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS slot TEXT;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS module TEXT;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS payload JSONB;
+
+-- RLS 설정
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE agent_sessions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
+
+-- bookings 정책
+CREATE POLICY "Enable all operations" ON bookings
+  FOR ALL USING (true) WITH CHECK (true);
+
+-- agent_sessions 정책
+CREATE POLICY "Enable all operations" ON agent_sessions
+  FOR ALL USING (true) WITH CHECK (true);
+
+-- audit_logs 정책
+CREATE POLICY "Enable all operations" ON audit_logs
+  FOR ALL USING (true) WITH CHECK (true);
+
+-- 인덱스 추가 (성능 최적화)
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
+CREATE INDEX IF NOT EXISTS idx_bookings_desired_at ON bookings(desired_at);
+CREATE INDEX IF NOT EXISTS idx_agent_sessions_slot_module ON agent_sessions(slot, module);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_category ON audit_logs(category);
+CREATE INDEX IF NOT EXISTS idx_leads_slot_module ON leads(slot, module);

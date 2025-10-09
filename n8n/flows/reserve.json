@@ -1,0 +1,85 @@
+{
+  "name": "Reserve Booking Automation",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "path": "reserve",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "name": "Set Variables",
+      "type": "n8n-nodes-base.set",
+      "position": [450, 300],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "message",
+              "value": "={{ $json.name }}님, {{ $json.desired_at }} 예약이 확정되었습니다. 감사합니다!"
+            },
+            {
+              "name": "phone",
+              "value": "={{ $json.phone }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Send Solapi",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [650, 300],
+      "parameters": {
+        "url": "https://api.solapi.com/messages/v4/send",
+        "authentication": "headerAuth",
+        "options": {
+          "bodyContentType": "json"
+        },
+        "bodyParametersJson": "={\n  \"message\": {\n    \"to\": \"{{ $json.phone }}\",\n    \"from\": \"01012345678\",\n    \"text\": \"{{ $json.message }}\"\n  }\n}"
+      }
+    },
+    {
+      "name": "Create Google Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "position": [850, 300],
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendarId": "primary",
+        "start": "={{ $json.desired_at }}",
+        "end": "={{ $json.desired_at }}",
+        "summary": "예약: {{ $json.name }}",
+        "description": "업종: {{ $json.industry }}\n전화번호: {{ $json.phone }}"
+      }
+    },
+    {
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1050, 300],
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={ \"success\": true, \"message\": \"Booking created and notification sent\" }"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Set Variables", "type": "main", "index": 0 }]]
+    },
+    "Set Variables": {
+      "main": [[{ "node": "Send Solapi", "type": "main", "index": 0 }]]
+    },
+    "Send Solapi": {
+      "main": [[{ "node": "Create Google Calendar Event", "type": "main", "index": 0 }]]
+    },
+    "Create Google Calendar Event": {
+      "main": [[{ "node": "Respond to Webhook", "type": "main", "index": 0 }]]
+    }
+  }
+}
