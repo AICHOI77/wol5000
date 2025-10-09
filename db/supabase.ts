@@ -30,3 +30,24 @@ export interface Banner {
   ends_at: string | null
   created_at: string
 }
+
+export interface AgentProduct {
+  id: string
+  title: string
+  slug: string
+  description: string
+  category: string
+  price: number
+  features: string[]
+  created_at: string
+  updated_at: string
+}
+
+export interface UserPurchase {
+  id: string
+  user_id: string
+  product_id: string
+  status: string
+  purchased_at: string
+  created_at: string
+}
