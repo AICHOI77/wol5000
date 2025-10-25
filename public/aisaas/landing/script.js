@@ -101,16 +101,33 @@ if (scrollCTA) {
 }
 
 // ========================================
-// NEW: PROGRESS BAR ANIMATION (93%)
+// NEW: PROGRESS BAR ANIMATION (0 → 93%)
 // ========================================
 const progressBarTop = document.getElementById('progress-bar-top');
 const progressBarBottom = document.getElementById('progress-bar-bottom');
+const progressNumberTop = document.getElementById('progress-number-top');
+const progressNumberBottom = document.getElementById('progress-number-bottom');
 
-// Animate to 93% on page load
-setTimeout(() => {
-    if (progressBarTop) progressBarTop.style.width = '93%';
-    if (progressBarBottom) progressBarBottom.style.width = '93%';
-}, 100);
+let currentProgress = 0;
+const targetProgress = 93;
+
+function animateProgress() {
+    if (currentProgress <= targetProgress) {
+        // Update bar width
+        if (progressBarTop) progressBarTop.style.width = currentProgress + '%';
+        if (progressBarBottom) progressBarBottom.style.width = currentProgress + '%';
+
+        // Update number display
+        if (progressNumberTop) progressNumberTop.textContent = currentProgress;
+        if (progressNumberBottom) progressNumberBottom.textContent = currentProgress;
+
+        currentProgress++;
+        setTimeout(animateProgress, 20); // 20ms마다 1%씩 증가 (약 1.86초 동안)
+    }
+}
+
+// Start animation after page load
+setTimeout(animateProgress, 300);
 
 // ========================================
 // NEW: DRAMATIC COUNTDOWN TIMER (MM:SS:CS)
@@ -333,13 +350,13 @@ const slotsRemaining = document.getElementById('slots-remaining');
 let slots = 3;
 
 function updateSlotsCounter() {
-    if (slots > 0 && Math.random() > 0.7) {
+    if (slots > 1 && Math.random() > 0.7) {
         slots--;
         if (slotsRemaining) {
             slotsRemaining.textContent = slots;
 
-            if (slots === 0) {
-                slotsRemaining.parentElement.innerHTML = '⚠️ <strong style="color: #e50914;">마감되었습니다</strong>';
+            if (slots === 1) {
+                slotsRemaining.parentElement.innerHTML = '⚠️ <strong style="color: #e50914;">마감 잔여 1개</strong>';
             }
         }
     }
