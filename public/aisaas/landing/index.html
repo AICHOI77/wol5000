@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 자동화 수익 무료 비밀강의 - 월 1.6억 시스템 완전 공개</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Scroll Progress Bar (Effect 6) -->
+    <div id="scroll-progress" class="scroll-progress"></div>
+
+    <!-- Floating Benefit Bubble (Effect 4, 11) -->
+    <div id="floating-bubble" class="floating-bubble">
+        <span class="pulse-dot"></span>
+        <span>🔥 현재 신청 중 <strong id="live-counter">38</strong>명</span>
+    </div>
+
+    <!-- Toast Notifications Container (Effect 12) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ========================================
+         SECTION 1 - HERO
+         Effects: 1 (Hover Gradient CTA), 2 (Scroll Gradient), 9 (Exit Intent), 14 (Dynamic UTM)
+         ======================================== -->
+    <section id="section1" class="hero-section scroll-gradient-bg">
+        <div class="container">
+            <!-- Hero Title with Exit Intent (Effect 9) -->
+            <h1 class="hero-main-title reveal-sequential" id="hero-title-blink">
+                미국 신흥부호 300명의 시스템을 연구하여
+            </h1>
+
+            <h1 class="hero-emphasis-title reveal-sequential">
+                <span class="red-emphasis">AI 자동화 수입으로<br>월 1.6억을 찍었던 비법</span>
+            </h1>
+
+            <p class="hero-subtitle reveal-sequential">
+                (그동안 국내 내수용 저품질 부업 등에 질리신 분들은 주목!<br>
+                강의비만 수억원을 쓰며 깨달은 본질을 AI최대표가 모두 공개합니다!)
+            </p>
+
+            <!-- CTA Button with Hover Gradient (Effect 1) -->
+            <button class="cta-button cta-primary cta-hover-gradient reveal-sequential" id="hero-cta">
+                무료 비밀강의 신청하기 →
+            </button>
+
+            <!-- NEW: 50% Progress Bar (centered) - MOVED BELOW CTA -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar-top"></div>
+            </div>
+            <p class="progress-text">무료 비밀강의 신청률 (93%)</p>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 2 - COUNTDOWN + PROOF
+         Effects: 3 (Sequential Reveal), 8 (Countdown CTA), 13 (Proof Slider)
+         ======================================== -->
+    <section id="section2" class="countdown-section">
+        <div class="container">
+            <h2 class="section-title reveal-sequential">
+                무료 비밀강의의 시작까지..
+            </h2>
+            <p class="section-subtitle reveal-sequential">
+                (2일간 저녁 8시 시작)
+            </p>
+
+            <!-- NEW: Dramatic Countdown Timer (MM:SS:CS) -->
+            <div class="countdown-wrapper reveal-sequential">
+                <div class="countdown-display-dramatic" id="countdown-timer">05:00:00</div>
+                <p class="countdown-cta-text-blink" id="countdown-text">지금 신청하세요!</p>
+            </div>
+
+            <!-- FIXED: Content Row for Proof Images (NO OVERLAP) -->
+            <div class="content-row reveal-sequential">
+                <div class="text-block">
+                    <h3 class="proof-caption-title">1.6억의 시스템을 만드는</h3>
+                    <h3 class="proof-caption-title">방법은 따로 존재합니다.</h3>
+                    <p class="proof-caption-sub">(수강생까지 모두 인증有)</p>
+                </div>
+                <div class="image-block">
+                    <!-- TODO: Replace with actual proof image -->
+                    <img src="assets/images/images1.png" alt="매출 인증" class="proof-img">
+                </div>
+            </div>
+
+            <!-- FIXED: Content Row for Book Cover (NO OVERLAP) -->
+            <div class="content-row reveal-sequential">
+                <div class="image-block">
+                    <!-- TODO: Replace with actual book cover image -->
+                    <img src="assets/images/images2.png" alt="AI 자동화 시스템 책" class="book-img">
+                </div>
+                <div class="text-block">
+                    <h3 class="proof-caption-title">실제 시스템을 공개합니다</h3>
+                    <p class="proof-caption-sub">전자책으로 증명된 방법론</p>
+                </div>
+            </div>
+
+            <!-- 12종 선물 섹션 -->
+            <div class="forbidden-section reveal-sequential">
+                <div class="forbidden-badge">(절대 배포 금지)</div>
+                <div class="gift-image-wrapper">
+                    <!-- TODO: Replace with gift template image -->
+                    <img src="assets/images/images3.png" alt="12종 선물 템플릿" class="gift-img">
+                </div>
+                <h2 class="gift-title">
+                    월 1.6억 만들어준 <span class="red-text">선물 12종</span> 모두 받아가세요!
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 3 - BENEFITS
+         Effects: 3 (Sequential Reveal), 15 (Randomized Testimonials)
+         ======================================== -->
+    <section id="section3" class="benefits-section">
+        <div class="container">
+            <h2 class="section-big-title reveal-sequential">
+                <span class="red-text">무료 강의만으로도 월 1000<br>달성하신 분들이 나오는 중!</span>
+            </h2>
+
+            <div class="benefits-icon reveal-sequential">
+                <div class="light-bulb">💡</div>
+            </div>
+
+            <h3 class="benefits-subtitle reveal-sequential">
+                비밀강의를 수강하면<br>
+                얻어갈 수 있는 것
+            </h3>
+
+            <!-- Randomized Testimonials (Effect 15) -->
+            <div class="benefits-list reveal-sequential" id="testimonials-container">
+                <div class="benefit-item" data-testimonial="1">
+                    <p class="benefit-text">
+                        <span class="red-text">해외 신흥 AI부호들의 시스템을</span> 내게 적용하는 비법
+                    </p>
+                </div>
+
+                <div class="benefit-item" data-testimonial="2">
+                    <p class="benefit-text">
+                        1달에 1.6억 매출 만든 <span class="red-text">3단계 AI 시스템의 핵심</span>
+                    </p>
+                </div>
+
+                <div class="benefit-item" data-testimonial="3">
+                    <p class="benefit-text">
+                        구독자 500명으로도 <span class="red-text">월 4500만원을 만드는 기술</span>
+                    </p>
+                </div>
+
+                <div class="benefit-item" data-testimonial="4">
+                    <p class="benefit-text">
+                        AI로 자동화 수익을 만드는 <span class="red-text">SaaS 수익화 테크닉</span>
+                    </p>
+                </div>
+
+                <div class="benefit-item" data-testimonial="5">
+                    <p class="benefit-text">
+                        61만원으로 <span class="red-text">5000만원 수익 낸</span> 구체적인 방법
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 4 - SEMINAR GIFTS
+         Effects: 17 (Limited Slots), 19 (Before→After Slide)
+         ======================================== -->
+    <section id="section4" class="seminar-section">
+        <div class="container">
+            <div class="seminar-badge-wrapper reveal-sequential">
+                <h2 class="seminar-badge">세미나 참석만 해도!</h2>
+            </div>
+
+            <!-- FIXED: Content Row for Seminar Image (NO OVERLAP) -->
+            <div class="content-row reveal-sequential">
+                <div class="image-block">
+                    <!-- TODO: Replace with seminar gift image -->
+                    <img src="assets/images/images4.png" alt="세미나 선물" class="seminar-img">
+                </div>
+                <div class="text-block">
+                    <div class="seminar-gift-item">
+                        <p class="gift-number">1.</p>
+                        <p class="gift-description">
+                            <strong>5700만원 만든 자동화 시퀀스 설계도</strong> 제공
+                        </p>
+                    </div>
+
+                    <div class="seminar-gift-item">
+                        <p class="gift-number">2.</p>
+                        <p class="gift-description">
+                            <strong>따라 읽으면 팔리는 황금 세일즈 비법서</strong>
+                        </p>
+                    </div>
+
+                    <div class="seminar-gift-item">
+                        <p class="gift-number">3.</p>
+                        <p class="gift-description">
+                            <strong>실제 매출 10배 올린 컨설팅 자료집</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="seminar-value reveal-sequential">
+                <span class="red-text">350만원 상당 자료를 드립니다!</span>
+            </h2>
+
+            <!-- Limited Slots Counter (Effect 17) -->
+            <div class="limited-slots reveal-sequential" id="limited-slots">
+                <p class="slots-warning">⚠️ 남은 세팅 자리: <strong id="slots-remaining">3</strong>자리</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 5 - COMPARISON (NO/YES)
+         Effects: 5 (Micro Vibration), 7 (Scroll Triggered CTA)
+         ======================================== -->
+    <section id="section5" class="comparison-section">
+        <div class="container">
+            <div class="comparison-bg reveal-sequential">
+                <h3 class="comparison-title micro-vibrate">
+                    구매대행? 애드센스? 흔한 내수용 부업 <strong>NO!</strong>
+                </h3>
+
+                <div class="comparison-diagram">
+                    <div class="comparison-box left-box">
+                        <p>자동으로 판매되는<br>온라인 자판기</p>
+                    </div>
+
+                    <div class="comparison-box center-box">
+                        <p>AI 고객<br>유입 시스템</p>
+                        <span class="arrow-left">←</span>
+                        <span class="arrow-right">→</span>
+                    </div>
+
+                    <div class="comparison-box right-box">
+                        <p>AI 프로그램<br>자동화 시스템</p>
+                    </div>
+                </div>
+
+                <h3 class="comparison-emphasis">
+                    <span class="red-text">오직 라이브에 참여하신 분들에게만 풀어드립니다!</span>
+                </h3>
+            </div>
+
+            <!-- Scroll Triggered CTA (Effect 7) -->
+            <button class="cta-button cta-secondary scroll-triggered-inline" id="scroll-cta">
+                지금 무료 신청하기 →
+            </button>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 6 - SECRETS (3가지 비밀)
+         Effects: 3 (Sequential Reveal), 10 (Idle Auto CTA Pop)
+         ======================================== -->
+    <section id="section6" class="secrets-section">
+        <div class="container">
+            <h3 class="secrets-intro reveal-sequential">
+                아마, 어디에서도 들어본적 없는 내용일 겁니다
+            </h3>
+
+            <h2 class="secrets-title reveal-sequential">
+                <span class="red-text">AI 자동화 수익 전격공개!</span>
+            </h2>
+
+            <div class="secrets-list reveal-sequential">
+                <div class="secret-item">
+                    <div class="secret-icon">💡</div>
+                    <h4 class="secret-heading">
+                        <strong>비밀1 : 나는 사업 아이템이 없는데 어떻게 하지?</strong>
+                    </h4>
+                    <p class="secret-text">
+                        <span class="red-text">AI가 알아서 사업계획서를 다 만들어줍니다.</span><br>
+                        여러분의 인생 이야기만 가져오면 됩니다.
+                    </p>
+                </div>
+
+                <div class="secret-item">
+                    <div class="secret-icon">💡</div>
+                    <h4 class="secret-heading">
+                        <strong>비밀2. 최근 급부상하는 AI를 사업 시스템을 만드는 방법</strong>
+                    </h4>
+                    <p class="secret-text">
+                        ROI를 극대화하고 시스템을 <span class="red-text">결합해서 수익화 하는 방법</span><br>
+                        최신 트렌드에 3천만원씩 투자한 AI최대표가 공개합니다.
+                    </p>
+                </div>
+
+                <div class="secret-item">
+                    <div class="secret-icon">💡</div>
+                    <h4 class="secret-heading">
+                        <strong>비밀3. AI최대표가 유명세 없이 1.6억 만든 실제 사례</strong>
+                    </h4>
+                    <p class="secret-text">
+                        <span class="red-text">구독자 500명으로도, 하루만에 만든 페이스북 계정으로도</span><br>
+                        리스크 없이 실제로 팔리는 구조를 만드는 방법 보여드립니다
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="secrets-cta reveal-sequential">
+                비밀 강의 신청하고 12종 무료 선물까지!
+            </h3>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 7 - CASE STUDIES
+         Effects: 13 (Proof Slider), 16 (ROI Simulator), 18 (Revenue Graph)
+         ======================================== -->
+    <section id="section7" class="cases-section">
+        <div class="container">
+            <h2 class="cases-title reveal-sequential">
+                현재까지 수백명이 수강했고<br>
+                <span class="red-text">월 1000 사례가 넘쳐납니다</span>
+            </h2>
+
+            <!-- FIXED: Content Row for Case Image (NO OVERLAP) -->
+            <div class="content-row reveal-sequential">
+                <div class="image-block">
+                    <!-- TODO: Replace with case study image -->
+                    <img src="assets/images/images5.png" alt="수강생 사례" class="case-img">
+                </div>
+                <div class="text-block">
+                    <h3 class="case-subtitle">
+                        <span class="red-text">AI+자동화+프롬프트를 적용한 사례 3</span>
+                    </h3>
+                    <p class="case-text">
+                        쉽고 빠른 컨설팅 연예컨설팅 분야 수강생<br>
+                        <strong class="red-text">월 4000만원 순이익 달성</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- ROI Simulator (Effect 16) -->
+            <div class="roi-simulator reveal-sequential">
+                <h3 class="roi-title">💰 AI 자동화 수익 예측기</h3>
+                <div class="roi-slider-wrapper">
+                    <label for="roi-slider">하루 AI 작업 시간: <strong id="roi-display">5</strong>시간</label>
+                    <input type="range" id="roi-slider" min="1" max="10" value="5" class="roi-range">
+                </div>
+                <div class="roi-results">
+                    <p>월 예상 수익: <strong id="monthly-revenue">7,500,000</strong>원</p>
+                    <p>연 예상 수익: <strong id="yearly-revenue">90,000,000</strong>원</p>
+                </div>
+            </div>
+
+            <!-- Revenue Line Graph (Effect 18) -->
+            <div class="revenue-graph reveal-sequential">
+                <h3 class="graph-title">📈 세미나 참석 후 수익 변화</h3>
+                <canvas id="revenue-canvas" width="600" height="300"></canvas>
+            </div>
+
+            <!-- NEW: Bottom Progress Bar (50% width, centered) -->
+            <div class="final-progress reveal-sequential">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar-bottom"></div>
+                </div>
+                <p class="progress-text">무료 비밀강의 신청률 (93%)</p>
+            </div>
+
+            <!-- Final Countdown (MM:SS:CS) -->
+            <div class="final-countdown reveal-sequential">
+                <h3 class="final-countdown-title">무료 비밀강의의 시작까지..</h3>
+                <p class="final-countdown-subtitle">(2일간 저녁 8시 시작)</p>
+                <div class="countdown-display-dramatic" id="countdown-timer-final">05:00:00</div>
+                <p class="countdown-cta-text-blink" id="countdown-text-final">지금 신청하세요!</p>
+            </div>
+
+            <!-- Final CTA Button (Effect 20: Double Tap Guard) -->
+            <div class="final-cta-wrapper reveal-sequential">
+                <button class="cta-button cta-primary cta-hover-gradient double-tap-guard" id="final-cta">
+                    (무료) 월1000 시작 방법·12종 선물받기 (공짜!)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         MODALS
+         ======================================== -->
+
+    <!-- Idle Popup Modal (Effect 10) -->
+    <div id="idle-popup-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-idle-popup">✕</button>
+            <h3>잠깐! 이 기회를 놓치시나요?</h3>
+            <p>무료 비밀강의는 <strong>선착순 마감</strong>됩니다.</p>
+            <button class="cta-button cta-primary cta-hover-gradient">지금 바로 신청하기</button>
+        </div>
+    </div>
+
+    <!-- NEW: Sticky CTA Bottom (Always Visible) -->
+    <div class="sticky-cta-fixed" id="sticky-cta-fixed">
+        <button class="sticky-cta-button">무료 비밀강의 지금 신청하기 →</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!-- Deploy /aisaas/landing to Vercel or Netlify -->

@@ -1,0 +1,1183 @@
+/* ========================================
+   AI 자동화 수익 무료 비밀강의
+   이미지-텍스트 겹침 완전 제거 버전
+   ======================================== */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0b0b0b;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.4;
+    overflow-x: hidden;
+    word-break: keep-all;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========================================
+   CORE LAYOUT FIX: CONTENT ROW (NO OVERLAP)
+   ======================================== */
+.content-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 60px 0;
+    padding: 40px 0;
+    position: relative;
+}
+
+.text-block {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 40px;
+    color: #FCEEE5;
+    z-index: 2;
+    position: relative;
+    word-break: keep-all;
+    overflow: hidden;
+}
+
+.image-block {
+    flex: 1;
+    min-width: 300px;
+    max-width: 50%;
+    z-index: 1;
+    position: relative;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 60px;
+}
+
+.image-block img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    object-fit: cover;
+    display: block;
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 768px) {
+    .content-row {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px 0;
+    }
+
+    .image-block {
+        max-width: 90%;
+        margin: 0 auto 30px;
+    }
+
+    .text-block {
+        padding: 20px;
+        max-width: 100%;
+    }
+}
+
+/* ========================================
+   NEW: 50% PROGRESS BAR (CENTERED)
+   ======================================== */
+.progress-container {
+    width: 50%;
+    margin: 40px auto 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 10px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #e50914;
+    transition: width 1s ease-in-out;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 6px;
+    font-size: 14px;
+    color: #f5f5f5;
+    font-weight: 500;
+}
+
+/* ========================================
+   SCROLL PROGRESS BAR (Effect 6)
+   ======================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, #e50914, #ff3030);
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+
+/* ========================================
+   FLOATING BUBBLE (Effect 4, 11)
+   ======================================== */
+.floating-bubble {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #e50914;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 15px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.5);
+    animation: floatBubble 3s ease-in-out infinite;
+}
+
+@keyframes floatBubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ========================================
+   TOAST NOTIFICATIONS (Effect 12)
+   ======================================== */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+}
+
+.toast-notification {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid #e50914;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+
+.toast-notification.toast-show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ========================================
+   SECTION 1 - HERO (Effect 1,2,9,14)
+   ======================================== */
+.hero-section {
+    background: #0b0b0b;
+    padding: 120px 0 80px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* Scroll Gradient Background (Effect 2) */
+.scroll-gradient-bg {
+    background: linear-gradient(180deg, #0b0b0b 0%, #1a0505 100%);
+    transition: background 0.3s ease;
+}
+
+.signup-progress {
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    height: 50px;
+    background: #e50914;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.progress-label {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.hero-main-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 30px 0 15px;
+    line-height: 1.4;
+}
+
+/* Exit Intent Blink (Effect 9) */
+.hero-main-title.blink-animation {
+    animation: blinkRed 0.5s ease-in-out 3;
+}
+
+@keyframes blinkRed {
+    0%, 100% { color: #ffffff; }
+    50% { color: #e50914; }
+}
+
+.hero-emphasis-title {
+    font-size: 54px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.red-emphasis {
+    color: #e50914;
+}
+
+.red-text {
+    color: #e50914;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: #FCEEE5;
+    margin: 30px auto;
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+/* ========================================
+   CTA BUTTONS (Effect 1: Hover Gradient)
+   ======================================== */
+.cta-button {
+    display: inline-block;
+    padding: 18px 40px;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 20px 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cta-primary {
+    background: #e50914;
+    color: #ffffff;
+}
+
+.cta-secondary {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: 2px solid #e50914;
+}
+
+/* Hover Gradient (Effect 1) */
+.cta-hover-gradient {
+    background: linear-gradient(90deg, #e50914 0%, #e50914 50%, #ff3030 50%, #ff3030 100%);
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    transition: background-position 0.4s ease, transform 0.2s ease;
+}
+
+.cta-hover-gradient:hover {
+    background-position: 100% 0%;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
+}
+
+.cta-button:active {
+    transform: scale(0.98);
+}
+
+/* ========================================
+   MICRO VIBRATION (Effect 5)
+   ======================================== */
+.micro-vibrate {
+    animation: microVibrate 0.3s ease-in-out;
+}
+
+@keyframes microVibrate {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+/* ========================================
+   SECTION 2 - COUNTDOWN + PROOF (Effect 3,8,13)
+   ======================================== */
+.countdown-section {
+    background: #000;
+    padding: 120px 0;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #FCEEE5;
+    margin-bottom: 30px;
+}
+
+.countdown-wrapper {
+    margin: 40px 0;
+}
+
+/* NEW: Dramatic Countdown Timer */
+.countdown-display-dramatic {
+    font-size: 72px;
+    font-weight: 900;
+    color: #e50914;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    animation: timerPulse 1s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* NEW: Blinking CTA Text */
+.countdown-cta-text-blink {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 20px;
+    animation: blinkFade 0.8s ease-in-out infinite;
+}
+
+@keyframes blinkFade {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Proof Caption Styles */
+.proof-caption-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.proof-caption-sub {
+    font-size: 16px;
+    color: #FCEEE5;
+    margin-top: 10px;
+}
+
+/* Proof Images (z-index fix) */
+.proof-img,
+.book-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(229, 9, 20, 0.3);
+}
+
+/* Gift Section */
+.forbidden-section {
+    margin: 80px 0;
+    text-align: center;
+}
+
+.forbidden-badge {
+    display: inline-block;
+    background: #e50914;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.gift-image-wrapper {
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.gift-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.gift-title {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-top: 30px;
+}
+
+/* ========================================
+   SECTION 3 - BENEFITS (Effect 3,15)
+   ======================================== */
+.benefits-section {
+    background: #0b0b0b;
+    padding: 120px 0;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.section-big-title {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 60px;
+}
+
+.benefits-icon {
+    margin: 40px 0;
+}
+
+.light-bulb {
+    font-size: 100px;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+}
+
+.benefits-subtitle {
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 40px 0;
+    line-height: 1.3;
+}
+
+.benefits-list {
+    max-width: 900px;
+    margin: 60px auto;
+}
+
+.benefit-item {
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.benefit-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.benefit-text {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* ========================================
+   SECTION 4 - SEMINAR GIFTS (Effect 17,19)
+   ======================================== */
+.seminar-section {
+    background: #0a0a0a;
+    padding: 120px 0;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.seminar-badge-wrapper {
+    margin-bottom: 60px;
+}
+
+.seminar-badge {
+    display: inline-block;
+    background: #e50914;
+    color: #fff;
+    padding: 20px 60px;
+    border-radius: 12px;
+    font-size: 42px;
+    font-weight: 900;
+}
+
+.seminar-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.seminar-gift-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.gift-number {
+    font-size: 28px;
+    font-weight: 900;
+    color: #e50914;
+    min-width: 40px;
+}
+
+.gift-description {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #FCEEE5;
+}
+
+.seminar-value {
+    font-size: 42px;
+    font-weight: 900;
+    margin-top: 60px;
+}
+
+/* Limited Slots (Effect 17) */
+.limited-slots {
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(229, 9, 20, 0.1);
+    border: 2px dashed #e50914;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.slots-warning {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.slots-warning strong {
+    color: #e50914;
+    font-size: 32px;
+}
+
+/* ========================================
+   SECTION 5 - COMPARISON (Effect 5,7)
+   ======================================== */
+.comparison-section {
+    background: #0b0b0b;
+    padding: 120px 0;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.comparison-bg {
+    background: rgba(26, 26, 26, 0.5);
+    padding: 60px 40px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+}
+
+.comparison-title {
+    font-size: 36px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 40px;
+}
+
+.comparison-title strong {
+    color: #e50914;
+    font-size: 48px;
+}
+
+.comparison-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 60px 0;
+    flex-wrap: wrap;
+}
+
+.comparison-box {
+    background: #1a1a1a;
+    border: 2px solid #e50914;
+    border-radius: 12px;
+    padding: 30px 20px;
+    min-width: 200px;
+    max-width: 250px;
+    position: relative;
+}
+
+.comparison-box p {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.arrow-left,
+.arrow-right {
+    position: absolute;
+    font-size: 36px;
+    color: #e50914;
+    font-weight: 900;
+}
+
+.arrow-left {
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow-right {
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.comparison-emphasis {
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 40px;
+}
+
+/* Scroll Triggered Inline CTA (Effect 7) */
+.scroll-triggered-inline {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.scroll-triggered-inline.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   SECTION 6 - SECRETS (Effect 3,10)
+   ======================================== */
+.secrets-section {
+    background: #0a0a0a;
+    padding: 120px 0;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.secrets-intro {
+    font-size: 28px;
+    font-weight: 600;
+    color: #FCEEE5;
+    margin-bottom: 30px;
+}
+
+.secrets-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 60px;
+}
+
+.secrets-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.secret-item {
+    background: rgba(26, 26, 26, 0.6);
+    border-left: 4px solid #e50914;
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.secret-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.secret-heading {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.secret-text {
+    font-size: 20px;
+    font-weight: 500;
+    color: #FCEEE5;
+    line-height: 1.6;
+}
+
+.secrets-cta {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 60px;
+}
+
+/* ========================================
+   SECTION 7 - CASE STUDIES (Effect 13,16,18)
+   ======================================== */
+.cases-section {
+    background: #0b0b0b;
+    padding: 120px 0;
+    text-align: center;
+}
+
+.cases-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 60px;
+    line-height: 1.2;
+}
+
+.case-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.case-subtitle {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.case-text {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #FCEEE5;
+}
+
+/* ROI Simulator (Effect 16) */
+.roi-simulator {
+    background: rgba(26, 26, 26, 0.6);
+    border: 2px solid #e50914;
+    border-radius: 12px;
+    padding: 40px;
+    margin: 60px auto;
+    max-width: 600px;
+}
+
+.roi-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.roi-slider-wrapper {
+    margin: 30px 0;
+}
+
+.roi-slider-wrapper label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #FCEEE5;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.roi-range {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #1a1a1a;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.roi-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e50914;
+    cursor: pointer;
+}
+
+.roi-range::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e50914;
+    cursor: pointer;
+    border: none;
+}
+
+.roi-results {
+    margin-top: 30px;
+}
+
+.roi-results p {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 15px 0;
+}
+
+.roi-results strong {
+    color: #e50914;
+    font-size: 28px;
+}
+
+/* Revenue Graph (Effect 18) */
+.revenue-graph {
+    margin: 60px auto;
+    max-width: 700px;
+}
+
+.graph-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+#revenue-canvas {
+    background: rgba(26, 26, 26, 0.6);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Final Elements */
+.final-progress {
+    max-width: 700px;
+    margin: 60px auto 40px;
+}
+
+.final-countdown {
+    margin: 60px 0;
+}
+
+.final-countdown-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.final-countdown-subtitle {
+    font-size: 18px;
+    color: #FCEEE5;
+    margin-bottom: 30px;
+}
+
+.countdown-display-final {
+    font-size: 72px;
+    font-weight: 900;
+    color: #e50914;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+}
+
+.final-cta-wrapper {
+    margin: 60px 0;
+}
+
+/* ========================================
+   MODALS
+   ======================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    border: 2px solid #e50914;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 32px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #e50914;
+}
+
+.modal-content h3 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 20px;
+    color: #FCEEE5;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* ========================================
+   STICKY CTA (Effect 6,7)
+   ======================================== */
+.sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #e50914;
+    padding: 20px;
+    text-align: center;
+    z-index: 999;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.sticky-cta.visible {
+    transform: translateY(0);
+}
+
+.sticky-cta-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.sticky-cta-text {
+    font-size: 22px;
+    font-weight: 900;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* ========================================
+   SEQUENTIAL REVEAL (Effect 3)
+   ======================================== */
+.reveal-sequential {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.reveal-sequential.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   DOUBLE TAP GUARD (Effect 20)
+   ======================================== */
+.double-tap-guard {
+    pointer-events: all;
+}
+
+.double-tap-guard.processing {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   NEW: STICKY CTA FIXED BOTTOM
+   ======================================== */
+.sticky-cta-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(11, 11, 11, 0.95);
+    text-align: center;
+    padding: 12px 0;
+    z-index: 9999;
+    animation: slideUp 0.5s ease-in-out;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.sticky-cta-button {
+    background: linear-gradient(90deg, #E50914, #B20710);
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 40px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+    transition: all 0.2s ease;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.sticky-cta-button:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+    animation: microVibrate 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+@media (max-width: 768px) {
+    .hero-main-title {
+        font-size: 24px;
+    }
+
+    .hero-emphasis-title {
+        font-size: 36px;
+    }
+
+    .section-big-title {
+        font-size: 32px;
+    }
+
+    .benefits-subtitle {
+        font-size: 24px;
+    }
+
+    .benefit-text {
+        font-size: 18px;
+    }
+
+    .seminar-badge {
+        font-size: 28px;
+        padding: 15px 40px;
+    }
+
+    .comparison-title {
+        font-size: 24px;
+    }
+
+    .secrets-title {
+        font-size: 32px;
+    }
+
+    .cases-title {
+        font-size: 32px;
+    }
+
+    .countdown-display,
+    .countdown-display-final {
+        font-size: 48px;
+    }
+
+    .floating-bubble {
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .comparison-diagram {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .arrow-left,
+    .arrow-right {
+        display: none;
+    }
+
+    .sticky-cta-text {
+        font-size: 16px;
+    }
+
+    .progress-container {
+        width: 80%;
+    }
+
+    .progress-text {
+        font-size: 12px;
+    }
+
+    .countdown-display-dramatic {
+        font-size: 48px;
+    }
+
+    .countdown-cta-text-blink {
+        font-size: 18px;
+    }
+
+    .sticky-cta-button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+}
