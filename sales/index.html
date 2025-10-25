@@ -1,0 +1,476 @@
+<!-- /sales/index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>월5천 세일즈 자동화 - 트래픽만 넣으면 매출이 자동으로</title>
+
+    <meta name="description" content="트래픽만 넣으면 전환이 자동으로 쌓입니다. 호버/타이머/스텔스/스티키 CTA 탑재.">
+    <meta property="og:title" content="월5천 세일즈 자동화">
+    <meta property="og:description" content="지금 이 순간에도 매출이 돌아가는 구조">
+    <!-- TODO 교체: OG 이미지 -->
+    <meta property="og:image" content="https://yourdomain.com/sales/og.png">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">월5천 자동화</div>
+                <button class="btn btn-primary btn-header" aria-label="선물받기">선물받기</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-gradient"></div>
+        <div class="container">
+            <div class="hero-content">
+                <!-- TODO 교체: UTM 동적 헤드라인 -->
+                <h1 class="hero-title" id="dynamic-headline">
+                    지금 이 순간에도 매출이 돌아가는 구조,<br>
+                    <span class="text-primary">월5천 세일즈 자동화</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    트래픽만 넣으면 전환이 자동으로 쌓입니다.<br>
+                    (호버/타이머/스텔스/스티키 CTA 탑재)
+                </p>
+
+                <button class="btn btn-primary btn-large btn-hero" aria-label="선물받기">
+                    <span class="btn-text">선물받기</span>
+                    <span class="btn-shine"></span>
+                </button>
+
+                <div class="trust-badges reveal">
+                    <div class="badge">
+                        <span class="badge-icon">👥</span>
+                        <span>실사용자 1,200+</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">📊</span>
+                        <span>평균 전환률 12.8%</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">⚡</span>
+                        <span>설치 30분</span>
+                    </div>
+                </div>
+
+                <div class="scroll-indicator">
+                    <div class="scroll-arrow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Carousel -->
+    <section class="proof" id="proof">
+        <div class="container">
+            <h2 class="section-title reveal">실제 사용자들의 전환 인증</h2>
+
+            <div class="carousel-wrapper">
+                <button class="carousel-nav carousel-nav-prev" aria-label="이전">‹</button>
+                <button class="carousel-nav carousel-nav-next" aria-label="다음">›</button>
+
+                <div class="carousel" id="proof-carousel">
+                    <div class="carousel-track">
+                        <!-- TODO 교체: proof1~10.png -->
+                        <div class="carousel-item"><img src="assets/proof1.png" alt="전환 인증 1" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof2.png" alt="전환 인증 2" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof3.png" alt="전환 인증 3" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof4.png" alt="전환 인증 4" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof5.png" alt="전환 인증 5" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof6.png" alt="전환 인증 6" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof7.png" alt="전환 인증 7" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof8.png" alt="전환 인증 8" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof9.png" alt="전환 인증 9" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                        <div class="carousel-item"><img src="assets/proof10.png" alt="전환 인증 10" loading="lazy" width="300" height="200"><div class="carousel-label">전환 인증</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counter -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="128400">0</div>
+                    <div class="stat-label">누적 리드</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="12.8" data-decimal="true">0</div>
+                    <div class="stat-suffix">%</div>
+                    <div class="stat-label">평균 전환률</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="27">0</div>
+                    <div class="stat-suffix">분</div>
+                    <div class="stat-label">평균 세팅시간</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Irresistible Offer (거절 불가 오퍼) -->
+    <section class="irresistible" id="irresistible">
+        <div class="container">
+            <h2 class="section-title reveal">오늘만 받을 수 있는 3가지</h2>
+            <p class="section-subtitle reveal">지금 결제하면 즉시 제공됩니다</p>
+
+            <div class="irresistible-grid">
+                <!-- Fast Bonus -->
+                <div class="irresistible-card reveal">
+                    <div class="card-badge fast-bonus">즉시 보상</div>
+                    <div class="card-icon">🎁</div>
+                    <h3 class="card-title">오늘만 즉시 보상 3종</h3>
+                    <ul class="card-list">
+                        <li>✓ 전환 카피 템플릿 12종</li>
+                        <li>✓ 설치 체크리스트 PDF</li>
+                        <li>✓ 세일즈 스크립트</li>
+                    </ul>
+                    <p class="card-note">결제 즉시 다운로드 가능</p>
+                </div>
+
+                <!-- Limited Slots (Effect 17) -->
+                <div class="irresistible-card reveal" style="border-color: var(--primary);">
+                    <div class="card-badge limited">한정</div>
+                    <div class="card-icon">🔥</div>
+                    <h3 class="card-title">한정 세팅</h3>
+                    <div class="limited-slots">
+                        <div class="slots-text">오늘 남은 세팅</div>
+                        <div class="slots-counter">
+                            <span class="slots-number" id="limited-slots">3</span>
+                            <span class="slots-total">/50</span>
+                        </div>
+                    </div>
+                    <p class="card-note urgency">마감 시 대기열로 전환</p>
+                </div>
+
+                <!-- Loss Aversion -->
+                <div class="irresistible-card reveal">
+                    <div class="card-badge loss">손실 회피</div>
+                    <div class="card-icon">⚠️</div>
+                    <h3 class="card-title">내일은 사라집니다</h3>
+                    <p class="card-desc">
+                        지금 가격은 <strong style="color: var(--primary);">오늘만</strong>.<br>
+                        내일부터 정가로 전환됩니다.
+                    </p>
+                    <div class="card-countdown">
+                        <span id="offer-hours">23</span>:<span id="offer-minutes">59</span>:<span id="offer-seconds">59</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary btn-large" style="margin-top: 40px;" aria-label="지금 혜택 받기">
+                지금 혜택 받기
+            </button>
+        </div>
+    </section>
+
+    <!-- ROI Simulator (Effect 16) -->
+    <section class="roi-simulator" id="roi-simulator">
+        <div class="container">
+            <h2 class="section-title reveal">나의 예상 매출 보기</h2>
+            <p class="section-subtitle reveal">광고 트래픽만 넣으면 위 금액이 자동으로 발생합니다</p>
+
+            <div class="roi-calculator reveal">
+                <div class="roi-inputs">
+                    <div class="input-group">
+                        <label for="traffic">하루 방문자 수</label>
+                        <input type="number" id="traffic" value="100" min="10" max="10000">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="price">상품 단가 (원)</label>
+                        <input type="number" id="price" value="100000" min="1000" step="1000">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="conversion">전환율 (%)</label>
+                        <input type="number" id="conversion" value="12.8" min="0.1" max="100" step="0.1">
+                        <small>가이드: 평균 12.8%</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="quantity">평균 구매 건수</label>
+                        <input type="number" id="quantity" value="1" min="1" max="10">
+                    </div>
+                </div>
+
+                <div class="roi-results">
+                    <div class="result-item">
+                        <div class="result-label">예상 일매출</div>
+                        <div class="result-value" id="daily-revenue">1,280,000원</div>
+                    </div>
+
+                    <div class="result-item highlight">
+                        <div class="result-label">예상 월매출</div>
+                        <div class="result-value primary" id="monthly-revenue">38,400,000원</div>
+                    </div>
+
+                    <div class="result-bar">
+                        <div class="result-bar-fill" id="result-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="roi-note reveal">
+                ✓ 실제 사용자 평균 전환율 12.8% 기준<br>
+                ✓ 광고 트래픽 투입 시 자동으로 전환 발생
+            </p>
+        </div>
+    </section>
+
+    <!-- Revenue Graph (Effect 18) -->
+    <section class="revenue-graph" id="revenue-graph">
+        <div class="container">
+            <h2 class="section-title reveal">7일 후 당신의 대시보드</h2>
+            <p class="section-subtitle reveal">7일 차에 이렇게 보입니다</p>
+
+            <div class="graph-wrapper reveal">
+                <canvas id="revenue-chart" width="800" height="400"></canvas>
+            </div>
+
+            <p class="graph-caption reveal">
+                ✓ 매일 자동으로 쌓이는 매출<br>
+                ✓ 트래픽만 유지하면 지속 성장
+            </p>
+        </div>
+    </section>
+
+    <!-- Offer (프로그램 설명) -->
+    <section class="offer" id="offer">
+        <div class="container">
+            <h2 class="section-title reveal">월5천 세일즈 자동화 프로그램</h2>
+            <p class="section-subtitle reveal">원페이지 퍼널 · 스텔스 자동 세일즈 · n8n 자동 설치</p>
+
+            <div class="offer-grid">
+                <div class="offer-card reveal">
+                    <div class="offer-icon">🎯</div>
+                    <h3 class="offer-title">원페이지 퍼널</h3>
+                    <p class="offer-desc">호버 효과, 타이머, 스티키 CTA가 기본 탑재된 고전환 퍼널.</p>
+                </div>
+
+                <div class="offer-card reveal">
+                    <div class="offer-icon">🤖</div>
+                    <h3 class="offer-title">스텔스 자동 세일즈</h3>
+                    <p class="offer-desc">녹화본 자동 재생 + 라이브 연동. 당신이 자는 동안에도 세일즈.</p>
+                </div>
+
+                <div class="offer-card reveal">
+                    <div class="offer-icon">⚙️</div>
+                    <h3 class="offer-title">n8n 자동 설치</h3>
+                    <p class="offer-desc">결제 후 30분 내 당신 계정에 자동 배포.</p>
+                </div>
+            </div>
+
+            <div class="bonuses reveal">
+                <h3 class="bonuses-title">🎁 추가 보너스</h3>
+                <ul class="bonuses-list">
+                    <li>✓ 전환 카피 템플릿 12종</li>
+                    <li>✓ 설치 체크리스트 PDF</li>
+                    <li>✓ 세일즈 스크립트</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <h2 class="section-title reveal">실제 작동 모습</h2>
+
+            <div class="demo-video-wrapper reveal">
+                <!-- TODO 교체: offer_demo.mp4 -->
+                <video class="demo-video" muted autoplay loop playsinline width="800" height="450">
+                    <source src="assets/offer_demo.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <p class="demo-caption reveal">
+                <strong>지금 보는 이 시스템을 그대로 복제합니다.</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- Scarcity Timer -->
+    <section class="scarcity" id="scarcity">
+        <div class="container">
+            <div class="scarcity-box reveal">
+                <h3 class="scarcity-title">⏰ 특별 제안 마감까지</h3>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">15</span>
+                        <span class="countdown-label">분</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">초</span>
+                    </div>
+                </div>
+                <p class="scarcity-desc" id="scarcity-desc">시간 내 신청 시 즉시 설치 보장</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before→After Slider (Effect 19) -->
+    <section class="before-after" id="before-after">
+        <div class="container">
+            <h2 class="section-title reveal">이 화면이 오늘 당신 계정에서 시작됩니다</h2>
+
+            <div class="ba-slider reveal">
+                <div class="ba-container">
+                    <div class="ba-before">
+                        <div class="ba-label">Before</div>
+                        <div class="ba-content">
+                            <div class="ba-icon">📄</div>
+                            <h3>정적 페이지</h3>
+                            <p>0 리드<br>수동 관리<br>낮은 전환율</p>
+                        </div>
+                    </div>
+
+                    <div class="ba-after" id="ba-after">
+                        <div class="ba-label">After</div>
+                        <div class="ba-content">
+                            <div class="ba-icon">📊</div>
+                            <h3>자동화 대시보드</h3>
+                            <p>리드 자동 유입<br>전환 자동 쌓임<br>평균 12.8% 전환률</p>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="range" class="ba-slider-input" id="ba-slider" min="0" max="100" value="50">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title reveal">자주 묻는 질문</h2>
+
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <h3 class="faq-question">정말 30분 내에 설치되나요?</h3>
+                    <p class="faq-answer">네. 결제 후 30분 내 당신의 계정으로 퍼널 링크를 제공합니다.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3 class="faq-question">환불이 가능한가요?</h3>
+                    <p class="faq-answer">결제 후 30분 내 '내 퍼널 링크' 제공—체감 후 만족 보장. 기술적 문제 시 100% 환불.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3 class="faq-question">내 업종에도 적용 가능한가요?</h3>
+                    <p class="faq-answer">네. 코칭/컨설팅/디지털 제품/SaaS 등 온라인 비즈니스 모두 가능.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="final-cta">
+        <div class="container">
+            <div class="final-cta-content reveal">
+                <h2 class="final-cta-title">당신의 업종 맞춤으로<br>오늘 바로 설치됩니다</h2>
+
+                <div class="final-cta-buttons">
+                    <button class="btn btn-primary btn-xl" aria-label="선물받기">
+                        <span class="btn-text">선물받기</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                    <!-- TODO 교체: 라이브 예약 링크 -->
+                    <a href="#" class="btn btn-outline btn-xl">라이브 예약</a>
+                </div>
+
+                <p class="final-trust">✓ 결제 후 30분 내 링크 제공 · 즉시 사용 가능</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2024 월5천 세일즈 자동화. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA (Effect 6) -->
+    <div class="sticky-cta" id="sticky-cta">
+        <div class="sticky-progress" id="sticky-progress"></div>
+        <div class="container">
+            <button class="btn btn-primary btn-sticky" aria-label="선물받기">
+                <span class="sticky-cta-text" id="sticky-cta-text">선물받기</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Bubble (Effect 4) -->
+    <div class="floating-bubble" id="floating-bubble">
+        <div class="bubble-content">
+            <span class="bubble-icon">🎁</span>
+            <span class="bubble-text">지금 신청 시 보너스 3종 증정</span>
+        </div>
+    </div>
+
+    <!-- Scroll CTA (Effect 7) -->
+    <div class="scroll-cta" id="scroll-cta">
+        <button class="btn btn-secondary" aria-label="지금 바로 시작">지금 바로 시작 →</button>
+    </div>
+
+    <!-- Live Counter (Effect 11) -->
+    <div class="live-counter" id="live-counter">
+        <span class="live-dot"></span>
+        <span class="live-text">지금 설치 중 <span id="live-count">37</span>명</span>
+    </div>
+
+    <!-- Toast (Effect 12) -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span class="toast-icon">✓</span>
+            <span class="toast-text" id="toast-text">김○○님 3분 전 신청</span>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="닫기">&times;</button>
+            <h2 class="modal-title" id="modal-title">신청서 작성</h2>
+
+            <!-- TODO 교체: Airtable embed URL -->
+            <iframe class="airtable-embed" src="https://airtable.com/embed/shrDUMMYFORM?backgroundColor=red" frameborder="0" width="100%" height="533"></iframe>
+
+            <p class="modal-note">제출 후 자동으로 안내 페이지로 이동합니다.</p>
+
+            <!-- Loading State (Effect 20) -->
+            <div class="modal-loading" id="modal-loading">
+                <div class="loading-spinner"></div>
+                <p>처리 중...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!--
+배포 안내:
+/sales 폴더를 Vercel/Netlify에 배포
+- Vercel: cd /sales && vercel --prod
+- Netlify: cd /sales && netlify deploy --prod --dir .
+-->

@@ -1,0 +1,242 @@
+<!-- /sales/thankyou.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신청 완료 - 월5천 세일즈 자동화</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .thankyou-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            background: linear-gradient(180deg, #2d1115 0%, #0b0b0b 100%);
+        }
+
+        .thankyou-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .thankyou-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+            animation: checkBounce 0.6s ease;
+        }
+
+        @keyframes checkBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .thankyou-title {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .thankyou-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 48px;
+        }
+
+        .progress-container {
+            margin: 48px 0;
+            padding: 40px;
+            background: var(--panel);
+            border-radius: var(--card-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 6px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .progress-text {
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        .progress-percent {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .cta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .countdown-box {
+            padding: 32px;
+            background: var(--glass);
+            border-radius: var(--card-radius);
+            border: 1px solid var(--primary);
+            margin-bottom: 32px;
+        }
+
+        .countdown-title {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: var(--muted);
+        }
+
+        .countdown-timer {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .reminder-box {
+            padding: 24px;
+            background: var(--panel);
+            border-radius: var(--card-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reminder-text {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <section class="thankyou-hero">
+        <div class="container">
+            <div class="thankyou-content">
+                <div class="thankyou-icon">✅</div>
+
+                <h1 class="thankyou-title">신청 완료!<br>지금 시스템 세팅 중입니다.</h1>
+
+                <p class="thankyou-subtitle">
+                    30분 내로 당신의 계정에 퍼널 링크를 보내드립니다.<br>
+                    지금 바로 시스템 시연을 확인해보세요.
+                </p>
+
+                <!-- Progress Animation (35% → 72% → 100%) -->
+                <div class="progress-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progress-bar"></div>
+                    </div>
+                    <div class="progress-text">
+                        세팅 진행률: <span class="progress-percent" id="progress-percent">0%</span>
+                    </div>
+                </div>
+
+                <!-- CTAs -->
+                <div class="cta-grid">
+                    <a href="deep.html" class="btn btn-primary btn-large">
+                        <span class="btn-text">시스템 시연 보기</span>
+                        <span class="btn-shine"></span>
+                    </a>
+
+                    <!-- TODO 교체: 라이브 세일즈 예약 링크 -->
+                    <a href="#" class="btn btn-outline btn-large">라이브 세일즈 예약</a>
+                </div>
+
+                <!-- Countdown to Tonight 8PM -->
+                <div class="countdown-box">
+                    <div class="countdown-title">오늘 밤 8시 라이브까지</div>
+                    <div class="countdown-timer" id="tonight-countdown">00:00:00</div>
+                </div>
+
+                <!-- Reminder -->
+                <div class="reminder-box">
+                    <p class="reminder-text">📱 카톡으로 알림 받기</p>
+                    <!-- TODO 교체: 카톡 알림 링크 -->
+                    <a href="#" class="btn btn-secondary">알림 신청하기</a>
+                </div>
+
+                <p style="margin-top: 40px; font-size: 14px; color: var(--muted);">
+                    ✓ 이메일/문자로도 링크를 보내드립니다.<br>
+                    ✓ 30분 이내 미도착 시 support@example.com으로 문의해주세요.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Progress Animation (35% → 72% → 100%)
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+
+        function animateProgress() {
+            const stages = [
+                { percent: 35, delay: 2000 },
+                { percent: 72, delay: 10000 },
+                { percent: 100, delay: 20000 }
+            ];
+
+            stages.forEach(stage => {
+                setTimeout(() => {
+                    progressBar.style.width = `${stage.percent}%`;
+                    progressPercent.textContent = `${stage.percent}%`;
+                }, stage.delay);
+            });
+        }
+
+        // Countdown to Tonight 8PM
+        function initTonightCountdown() {
+            const countdownEl = document.getElementById('tonight-countdown');
+            if (!countdownEl) return;
+
+            function updateCountdown() {
+                const now = new Date();
+                const tonight = new Date(now);
+                tonight.setHours(20, 0, 0, 0);
+
+                if (now > tonight) {
+                    tonight.setDate(tonight.getDate() + 1);
+                }
+
+                const diff = tonight - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                countdownEl.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            animateProgress();
+            initTonightCountdown();
+        });
+    </script>
+</body>
+</html>
+
+<!--
+배포 안내:
+/sales 폴더를 Vercel/Netlify에 배포
+-->

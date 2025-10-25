@@ -1,0 +1,311 @@
+<!-- /sales/deep.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시스템 시연 - 월5천 세일즈 자동화</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header scrolled" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">월5천 자동화</div>
+                <button class="btn btn-primary btn-header" aria-label="지금 바로 세팅 신청">지금 바로 세팅 신청</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" style="padding-top: 140px;">
+        <div class="hero-gradient"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    이제 당신 계정에<br>
+                    <span class="text-primary">자동화가 설치됩니다.</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    결제 후 30분 내, 당신의 업종에 맞춤화된 퍼널이<br>
+                    자동으로 배포되고 즉시 사용 가능합니다.
+                </p>
+
+                <button class="btn btn-primary btn-large btn-hero" aria-label="지금 바로 세팅 신청하기">
+                    <span class="btn-text">지금 바로 세팅 신청하기</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Irresistible Offer (반복) -->
+    <section class="irresistible">
+        <div class="container">
+            <h2 class="section-title reveal">오늘만 받을 수 있는 3가지</h2>
+
+            <div class="irresistible-grid">
+                <div class="irresistible-card reveal">
+                    <div class="card-badge fast-bonus">즉시 보상</div>
+                    <div class="card-icon">🎁</div>
+                    <h3 class="card-title">오늘만 즉시 보상 3종</h3>
+                    <ul class="card-list">
+                        <li>✓ 전환 카피 템플릿 12종</li>
+                        <li>✓ 설치 체크리스트 PDF</li>
+                        <li>✓ 세일즈 스크립트</li>
+                    </ul>
+                </div>
+
+                <div class="irresistible-card reveal" style="border-color: var(--primary);">
+                    <div class="card-badge limited">한정</div>
+                    <div class="card-icon">🔥</div>
+                    <h3 class="card-title">한정 세팅</h3>
+                    <div class="limited-slots">
+                        <div class="slots-text">오늘 남은 세팅</div>
+                        <div class="slots-counter">
+                            <span class="slots-number" id="limited-slots-deep">3</span>
+                            <span class="slots-total">/50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="irresistible-card reveal">
+                    <div class="card-badge loss">손실 회피</div>
+                    <div class="card-icon">⚠️</div>
+                    <h3 class="card-title">내일은 사라집니다</h3>
+                    <p class="card-desc">
+                        지금 가격은 <strong style="color: var(--primary);">오늘만</strong>.<br>
+                        내일부터 정가로 전환됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video -->
+    <section class="demo">
+        <div class="container">
+            <h2 class="section-title reveal">실제 설치 화면</h2>
+
+            <div class="demo-video-wrapper reveal">
+                <!-- TODO 교체: offer_demo.mp4 -->
+                <video class="demo-video" muted autoplay loop playsinline width="800" height="450">
+                    <source src="assets/offer_demo.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- TODO 교체: 설치 스크린샷 -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
+                <div class="reveal">
+                    <img src="assets/install1.png" alt="설치 화면 1" loading="lazy" width="300" height="200" style="border-radius: 16px; width: 100%; background: var(--panel);">
+                </div>
+                <div class="reveal">
+                    <img src="assets/install2.png" alt="설치 화면 2" loading="lazy" width="300" height="200" style="border-radius: 16px; width: 100%; background: var(--panel);">
+                </div>
+                <div class="reveal">
+                    <img src="assets/install3.png" alt="설치 화면 3" loading="lazy" width="300" height="200" style="border-radius: 16px; width: 100%; background: var(--panel);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="offer">
+        <div class="container">
+            <h2 class="section-title reveal">프로그램 가격</h2>
+            <p class="section-subtitle reveal">선택하신 플랜에 따라 보너스가 제공됩니다</p>
+
+            <div class="offer-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <!-- Basic Plan -->
+                <div class="offer-card reveal" style="border: 2px solid rgba(255,255,255,0.1);">
+                    <div class="offer-icon">📦</div>
+                    <h3 class="offer-title">베이직</h3>
+                    <div style="font-size: 48px; font-weight: 800; margin: 20px 0;">
+                        200<span style="font-size: 24px; color: var(--muted);">만원</span>
+                    </div>
+                    <ul style="text-align: left; list-style: none; padding: 0; color: var(--muted); font-size: 15px; line-height: 2;">
+                        <li>✓ 원페이지 퍼널 설치</li>
+                        <li>✓ 기본 카피 템플릿 5종</li>
+                        <li>✓ 30분 내 설치 완료</li>
+                        <li>✓ 1:1 세팅 가이드</li>
+                    </ul>
+                    <!-- TODO 교체: 결제 링크 -->
+                    <a href="#" class="btn btn-outline" style="margin-top: 24px; width: 100%;">베이직 선택하기</a>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="offer-card reveal" style="border: 2px solid var(--primary); position: relative;">
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); padding: 4px 16px; border-radius: 12px; font-size: 12px; font-weight: 700;">BEST</div>
+                    <div class="offer-icon">🚀</div>
+                    <h3 class="offer-title">프리미엄</h3>
+                    <div style="font-size: 48px; font-weight: 800; color: var(--primary); margin: 20px 0;">
+                        500<span style="font-size: 24px; color: var(--muted);">만원</span>
+                    </div>
+                    <ul style="text-align: left; list-style: none; padding: 0; color: var(--muted); font-size: 15px; line-height: 2;">
+                        <li>✓ <strong style="color: var(--text);">모든 베이직 기능</strong></li>
+                        <li>✓ 전환 카피 템플릿 12종</li>
+                        <li>✓ 스텔스 자동 세일즈</li>
+                        <li>✓ n8n 자동화 워크플로우</li>
+                        <li>✓ 3개월 1:1 컨설팅</li>
+                        <li>✓ 무제한 A/B 테스트</li>
+                    </ul>
+                    <!-- TODO 교체: 결제 링크 -->
+                    <a href="#" class="btn btn-primary" style="margin-top: 24px; width: 100%;">
+                        <span class="btn-text">프리미엄 선택하기</span>
+                        <span class="btn-shine"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bonuses -->
+            <div class="bonuses reveal" style="margin-top: 60px;">
+                <h3 class="bonuses-title">🎁 모든 플랜 공통 보너스</h3>
+                <ul class="bonuses-list">
+                    <li>✓ 전환 카피 템플릿 12종</li>
+                    <li>✓ 설치 체크리스트 PDF</li>
+                    <li>✓ 세일즈 스크립트</li>
+                    <li>✓ 퍼널 최적화 가이드</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scarcity Timer (Session Shared) -->
+    <section class="scarcity">
+        <div class="container">
+            <div class="scarcity-box reveal">
+                <h3 class="scarcity-title">⏰ 특별 제안 마감까지</h3>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">15</span>
+                        <span class="countdown-label">분</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">초</span>
+                    </div>
+                </div>
+                <p class="scarcity-desc" id="scarcity-desc">시간 내 신청 시 세팅비 무료</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="final-cta-content reveal">
+                <h2 class="final-cta-title">
+                    지금 바로 신청하고<br>
+                    30분 내 퍼널을 받아보세요.
+                </h2>
+
+                <div class="final-cta-buttons">
+                    <!-- TODO 교체: 결제 링크 -->
+                    <button class="btn btn-primary btn-xl" aria-label="지금 바로 세팅 신청하기">
+                        <span class="btn-text">지금 바로 세팅 신청하기</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+
+                <p class="final-trust">✓ 결제 후 30분 내 링크 제공 · 즉시 사용 가능</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2024 월5천 세일즈 자동화. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta visible" id="sticky-cta">
+        <div class="sticky-progress" id="sticky-progress"></div>
+        <div class="container">
+            <button class="btn btn-primary btn-sticky" aria-label="지금 바로 세팅 신청">
+                <span class="sticky-cta-text">지금 바로 세팅 신청</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="닫기">&times;</button>
+            <h2 class="modal-title" id="modal-title">세팅 신청하기</h2>
+
+            <!-- TODO 교체: 결제 폼 또는 Airtable -->
+            <iframe class="airtable-embed" src="https://airtable.com/embed/shrDUMMYFORM?backgroundColor=red" frameborder="0" width="100%" height="533"></iframe>
+
+            <p class="modal-note">제출 후 결제 페이지로 이동합니다.</p>
+
+            <div class="modal-loading" id="modal-loading">
+                <div class="loading-spinner"></div>
+                <p>처리 중...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Deep Funnel Specific
+        document.addEventListener('DOMContentLoaded', () => {
+            const deepCTAs = document.querySelectorAll('.btn-hero, .btn-header, .btn-sticky, .offer-card .btn, .final-cta-buttons .btn');
+
+            deepCTAs.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const modal = document.getElementById('modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.classList.add('modal-open');
+                    }
+                });
+            });
+
+            // Reveal animations
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 100);
+            });
+
+            // Limited Slots (deep 페이지용)
+            const slotsNumber = document.getElementById('limited-slots-deep');
+            if (slotsNumber) {
+                let slots = 3;
+                function decreaseSlots() {
+                    if (slots > 0 && Math.random() > 0.5) {
+                        slots--;
+                        slotsNumber.textContent = slots;
+                        if (slots === 0) {
+                            slotsNumber.textContent = '마감';
+                            slotsNumber.style.color = 'var(--muted)';
+                        }
+                    }
+                    setTimeout(decreaseSlots, 30000 + Math.random() * 60000);
+                }
+                setTimeout(decreaseSlots, 30000);
+            }
+        });
+    </script>
+</body>
+</html>
+
+<!--
+배포 안내:
+/sales 폴더를 Vercel/Netlify에 배포
+- Vercel: cd /sales && vercel --prod
+- Netlify: cd /sales && netlify deploy --prod --dir .
+-->
